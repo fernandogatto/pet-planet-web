@@ -9,18 +9,18 @@
 
 <p align="center">
   <a href="https://github.com/fernandogatto/" target="_blank">
-    <img src="https://img.shields.io/badge/author-fernandogatto-13B0FC" alt="Author">
+    <img src="https://img.shields.io/badge/author-fernandogatto-FB6118" alt="Author">
   </a>
 
   <a href="https://github.com/sapucaialuann/" target="_blank">
-    <img src="https://img.shields.io/badge/author-sapucaialuann-13B0FC" alt="Author">
+    <img src="https://img.shields.io/badge/author-sapucaialuann-FB6118" alt="Author">
   </a>
 
-  <img src="https://img.shields.io/badge/license-MIT-%2313B0FC" alt="License">
+  <img src="https://img.shields.io/badge/license-MIT-%23FB6118" alt="License">
 
-  <img src="https://img.shields.io/github/forks/fernandogatto/plantmanager-mobile?color=13B0FC" alt="Forks">
+  <img src="https://img.shields.io/github/forks/fernandogatto/plantmanager-mobile?color=FB6118" alt="Forks">
 
-  <img src="https://img.shields.io/github/stars/fernandogatto/plantmanager-mobile?color=13B0FC" alt="Stars">
+  <img src="https://img.shields.io/github/stars/fernandogatto/plantmanager-mobile?color=FB6118" alt="Stars">
 </p>
 
 > Web application for verification of the military enlistment service.
