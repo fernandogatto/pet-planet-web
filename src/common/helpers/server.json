@@ -1,0 +1,105 @@
+{
+  "clientes": [
+    {
+      "id": 1,
+      "nome": "Fernando Gatto",
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "endereco": "Rua Paulo Gustavo, 123",
+      "cpf": "509.804.090-63",
+      "nascimento": "31/10/1990",
+      "telefone": "(21) 99812-1800",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/45057940?s=460&u=7b54fe90dcf704f572207b0a2a7f59f948fdd63e&v=4"
+    },
+    {
+      "id": 2,
+      "nome": "Luann Sapucaia",
+      "email": "sapucaialuann@email.com",
+      "senha": "123123",
+      "endereco": "Rua Paulo Gustavo, 123",
+      "cpf": "509.804.090-63",
+      "nascimento": "31/10/1990",
+      "telefone": "(21) 99812-1800",
+      "avatar_url": "https://avatars.githubusercontent.com/u/37882760?v=4"
+    }
+  ],
+  "auth": [
+    {},
+    {
+      "id": 1,
+      "nome": "Fernando Gatto",
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "endereco": "Rua Paulo Gustavo, 123",
+      "cpf": "509.804.090-63",
+      "nascimento": "31/10/1990",
+      "telefone": "(21) 99812-1800",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/45057940?s=460&u=7b54fe90dcf704f572207b0a2a7f59f948fdd63e&v=4"
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 2
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 3
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 4
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 5
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 6
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 7
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 8
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 9
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 10
+    }
+  ],
+  "pets": [
+    {
+      "id": 1,
+      "nome": "Hachi",
+      "especie": "Cão",
+      "raca": "Akita",
+      "idade": "2 anos",
+      "porte": "Médio"
+    }
+  ],
+  "hoteis": [
+    {
+      "id": 1,
+      "nome": "Um Hotel Bom pra Cachorro",
+      "endereco": "Rua ABC",
+      "telefone": "(21) 98765-4321",
+      "diaria": "123,00",
+      "petqaceita": ""
+    }
+  ]
+}
