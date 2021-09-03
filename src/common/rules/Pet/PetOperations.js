@@ -1,13 +1,13 @@
-import CustomerService from '../../services/CustomerService';
+import PetService from '../../services/PetService';
 
 import Toast from '../../helpers/Toast';
 
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
-const CustomerOperations = {
-    getCustomers: () => async () => {
+const PetOperations = {
+    getPets: () => async () => {
         try {
-            const response = await CustomerService.getCustomers();
+            const response = await PetService.getPets();
 
             return response.data;
         } catch (error) {
@@ -18,4 +18,4 @@ const CustomerOperations = {
     },
 }
 
-export default CustomerOperations;
+export default PetOperations;

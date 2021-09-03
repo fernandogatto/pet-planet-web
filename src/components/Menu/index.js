@@ -81,6 +81,14 @@ const Menu = () => {
                             <Home />
                             Home
                         </NavLink>
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <Home />
+                            Adoção
+                        </NavLink>
                     </nav>
             )}
 
