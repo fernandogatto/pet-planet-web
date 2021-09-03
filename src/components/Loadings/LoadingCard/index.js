@@ -7,8 +7,6 @@ import {
     Card,
     CardActions,
     CardContent,
-    CardMedia,
-    Button,
 } from '@material-ui/core';
 
 import { Replay } from '@material-ui/icons';

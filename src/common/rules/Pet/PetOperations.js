@@ -16,6 +16,18 @@ const PetOperations = {
             throw error;
         }
     },
+
+    getPet: (id) => async () => {
+        try {
+            const response = await PetService.getPet(id);
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
 }
 
 export default PetOperations;

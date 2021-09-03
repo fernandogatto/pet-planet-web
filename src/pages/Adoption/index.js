@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import { Link } from 'react-router-dom';
+
 import { useDispatch } from 'react-redux';
 
 import {
@@ -130,6 +132,8 @@ const Adoption = () => {
                                         <Button
                                             size="small"
                                             color="primary"
+                                            component={Link}
+                                            to={`/adoption/pet/${item.id}`}
                                         >
                                             Ver detalhes
                                         </Button>
