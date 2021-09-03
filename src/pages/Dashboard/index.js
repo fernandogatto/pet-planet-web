@@ -1,6 +1,6 @@
 import React from 'react';
-
 import { Box } from '@material-ui/core';
+import SimpleCard from '../../components/Cards';
 
 import {
     ContainerDashboard,
@@ -18,6 +18,9 @@ const Dashboard = () => {
                 <ContentDashboard>
                     <Box className="container-header-page">
                         <h1>Dashboard</h1>
+                    </Box>
+                    <Box>
+                        <SimpleCard />
                     </Box>
                 </ContentDashboard>
             </Box>
