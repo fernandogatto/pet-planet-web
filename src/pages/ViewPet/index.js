@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
@@ -19,15 +19,24 @@ import {
     ContentViewPet,
 } from './styles';
 
+import { useAuth } from '../../common/contexts/Auth';
+
 import Menu from '../../components/Menu';
+
+import SuccessDialog from '../../components/Dialogs/SuccessDialog';
 
 import PetOperations from '../../common/rules/Pet/PetOperations';
 
+import AdoptionRequestOperations from '../../common/rules/AdoptionRequest/AdoptionRequestOperations';
+
 const ViewPet = ({ match }) => {
-    // const { id } = match.params;
-    const id = 1;
+    const { id } = match.params;
+
+    const history = useHistory();
 
     const dispatch = useDispatch();
+
+    const { user } = useAuth();
 
     const [pet, setPet] = useState({});
 
@@ -36,6 +45,8 @@ const ViewPet = ({ match }) => {
     const [hasError, setHasError] = useState(false);
 
     const [isSubmiting, setIsSubmiting] = useState(false);
+
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     useEffect(() => {
         getPet();
@@ -61,13 +72,41 @@ const ViewPet = ({ match }) => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
+        try {
+            const data = {
+                pet_id: id,
+                client_id: user.id,
+            };
 
+            setIsSubmiting(true);
+
+            await dispatch(AdoptionRequestOperations.postAdoptionRequest(data));
+
+            setIsSubmiting(false);
+
+            setDialogIsOpen(true);
+        } catch (err) {
+            console.log('handleSubmit', err);
+
+            setIsSubmiting(false);
+        }
     }
 
     return (
         <ContainerViewPet>
             <Menu />
+
+            <SuccessDialog
+                dialogOpen={dialogIsOpen}
+                handleCloseDialog={() => {
+                    setDialogIsOpen(false);
+
+                    history.goBack();
+                }}
+                title="Sucesso"
+                message="Pedido de adoção feito com sucesso!"
+            />
 
             <Box className="container-page">
                 <ContentViewPet>
@@ -109,8 +148,8 @@ const ViewPet = ({ match }) => {
                                     <p>Porte: {pet.porte}</p>
                                 </Box>
 
-                                <Box className="container-emotions">
-
+                                <Box className="container-registry">
+                                    <p>{pet.descricao}</p>
                                 </Box>
 
                                 <Box mt={2} className="grid-button">

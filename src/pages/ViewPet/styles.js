@@ -50,13 +50,11 @@ export const ContentViewPet = withTheme(styled.div`
         }
 
         .container-registry {
+            margin-bottom: 24px;
+
             p {
                 line-height: 21px;
             }
-        }
-
-        .container-emotions {
-
         }
 
         .grid-button {

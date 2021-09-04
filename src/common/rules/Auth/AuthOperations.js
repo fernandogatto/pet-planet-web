@@ -20,7 +20,7 @@ const AuthOperations = {
             const user = localStorage.getItem(`@${Storage.project}:user`);
 
             if (user) {
-                dispatch(AuthActions.SetSuccess(user));
+                dispatch(AuthActions.SetSuccess(JSON.parse(user)));
             }
         } catch (error) {
             Toast.showError(getErrorMessage(error));
@@ -34,8 +34,6 @@ const AuthOperations = {
 
             const user = customers.data
                 .find(item => item.email === data.email && item.senha === data.senha);
-
-            console.log('user', user)
 
             if (!user) {
                 const number = 0;
@@ -60,12 +58,10 @@ const AuthOperations = {
             throw error;
         }
     },
-    removeAuth: () => async (dispatch) => {
+    removeAuth: () => (dispatch) => {
         dispatch(AuthActions.SetLoading());
 
         try {
-            // await AuthService.removeAuth();
-
             localStorage.removeItem(`@${Storage.project}:user`);
 
             Toast.showSuccess('Logout feito com sucesso');

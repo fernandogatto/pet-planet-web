@@ -15,18 +15,18 @@ const CustomRoute = ({ isPrivate, component: Component, ...rest }) => {
     return (
         <Route
             {...rest}
-            render={({ location }) => {
+            render={(props) => {
                 return _isPrivate === !!(
                     user && JSON.stringify(user) !== JSON.stringify({})
                 ) ? (
-                    <Component />
+                    <Component {...props} />
                 ) : (
                     <Redirect
                         to={{
                             pathname: _isPrivate
                                 ? '/'
                                 : '/dashboard',
-                            state: { from: location },
+                            state: { from: props.location },
                         }}
                     />
                 )
