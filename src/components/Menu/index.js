@@ -11,7 +11,10 @@ import {
 
 import {
     Home,
-    Person,
+    Pets,
+    Attachment,
+    Apartment,
+    Call,
     ExitToApp,
     Menu as MenuIcon,
     Close,
@@ -79,15 +82,39 @@ const Menu = () => {
                             activeClassName="active"
                         >
                             <Home />
-                            Home
+                            Início
                         </NavLink>
 
                         <NavLink
                             to="/adoption"
                             activeClassName="active"
                         >
-                            <Home />
+                            <Pets />
                             Adoção
+                        </NavLink>
+
+                        <NavLink
+                            to="/request"
+                            activeClassName="active"
+                        >
+                            <Attachment />
+                            Meus pedidos
+                        </NavLink>
+
+                        <NavLink
+                            to="/accommodation"
+                            activeClassName="active"
+                        >
+                            <Apartment />
+                            Hospedagem
+                        </NavLink>
+
+                        <NavLink
+                            to="/rescue"
+                            activeClassName="active"
+                        >
+                            <Call />
+                            Resgate
                         </NavLink>
                     </nav>
             )}
