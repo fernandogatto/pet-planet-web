@@ -90,7 +90,7 @@ const SignIn = () => {
                     alt="Logo eMilitar"
                 />
 
-                <h1>Cuidando dos seus pets até na lua</h1>
+                <h1>Tudo para o seu pet em um só lugar</h1>
 
                 <Box className="container-form">
                     <TextField

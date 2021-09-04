@@ -4,7 +4,7 @@ import Toast from '../../helpers/Toast';
 
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
-const CityOperations = {
+const CustomerOperations = {
     getCustomers: () => async () => {
         try {
             const response = await CustomerService.getCustomers();
@@ -18,4 +18,4 @@ const CityOperations = {
     },
 }
 
-export default CityOperations;
+export default CustomerOperations;

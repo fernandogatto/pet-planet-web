@@ -4,6 +4,9 @@ import {
     Box,
     IconButton,
     Typography,
+    Card,
+    CardActions,
+    CardContent,
 } from '@material-ui/core';
 
 import { Replay } from '@material-ui/icons';
@@ -14,7 +17,6 @@ import { Container } from './styles';
 
 const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
     return (
-
         <Container>
             {hasError && (
                 <Box style={{ textAlign: 'center' }}>
@@ -32,24 +34,40 @@ const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
 
             {isLoading && (
                 [...Array(rows)].map((element, index) => (
-                    <Box key={index} className="container-box">
+                    <Card
+                        key={index}
+                        className="card-container"
+                    >
                         <Skeleton
-                            type="rect"
-                            height={32}
-                            width={120}
-                            style={{marginBottom: 16}}
+                            animation="wave"
+                            variant="rect"
+                            className="image-item"
                         />
-                        <Skeleton
-                            type="rect"
-                            width={250}
-                            style={{marginBottom: 4}}
-                        />
-                        <Skeleton
-                            type="rect"
-                            width={250}
-                            style={{marginBottom: 4}}
-                        />
-                    </Box>
+
+                        <CardContent>
+                            <>
+                                <Skeleton
+                                    animation="wave"
+                                    variant="text"
+                                    style={{ marginBottom: 8 }}
+                                />
+                                <Skeleton
+                                    animation="wave"
+                                    variant="text"
+                                    width="80%"
+                                />
+                            </>
+                        </CardContent>
+
+                        <CardActions>
+                            <Skeleton
+                                animation="wave"
+                                variant="rect"
+                                height={30}
+                                width={100}
+                            />
+                        </CardActions>
+                    </Card>
                 ))
             )}
         </Container>

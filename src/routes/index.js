@@ -26,6 +26,20 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/adoption"
+                    component={Modules.Adoption}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/adoption/pet/:id"
+                    component={Modules.ViewPet}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )
