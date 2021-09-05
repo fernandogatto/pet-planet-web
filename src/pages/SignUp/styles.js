@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-import { withTheme } from '@material-ui/core/styles';
+import { withTheme  } from '@material-ui/core/styles';
 
 import background from '../../assets/sign-in-background.jpg';
 
-export const ContainerSignIn = withTheme(styled.div`
+export const ContainerSignUp = withTheme(styled.div`
     height: 100vh;
     display: flex;
     align-items: stretch;
@@ -14,19 +14,46 @@ export const ContainerSignIn = withTheme(styled.div`
         max-width: 768px;
         width: 100%;
         padding: 45px 30px;
-        text-align: center;
+        overflow-y: scroll;
 
-        img {
-            height: 90px;
-        }
-
-        img, h1 {
-            margin-bottom: 24px;
+        h1 {
+            margin-top: 16px;
+            margin-bottom: 32px;
         }
     }
 
     .container-form {
         align-items: center;
+
+        .container-flex {
+            display: flex;
+            margin-bottom: 16px;
+
+            @media(max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .item-flex {
+                flex: 1;
+
+                &:nth-child(1) {
+                    margin-right: 8px;
+
+                    @media(max-width: 768px) {
+                        margin-right: 0;
+                        margin-bottom: 16px;
+                    }
+                }
+
+                &:nth-child(2) {
+                    margin-left: 8px;
+
+                    @media(max-width: 768px) {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
 
         .input {
             width: 100%;
@@ -38,14 +65,8 @@ export const ContainerSignIn = withTheme(styled.div`
 
         .grid-button {
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-end;
             align-items: center;
-
-            .container-links {
-                a + a {
-                    margin-left: 16px;
-                }
-            }
 
             .wrapper {
                 position: relative;
@@ -62,7 +83,7 @@ export const ContainerSignIn = withTheme(styled.div`
     }
 `);
 
-export const SignInBackground = styled.div`
+export const SignUpBackground = styled.div`
     flex: 1;
     background: url(${background}) no-repeat center center;
     background-size: cover;
