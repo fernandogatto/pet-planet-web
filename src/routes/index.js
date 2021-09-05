@@ -20,6 +20,12 @@ const Routes = () => {
                 />
 
                 <CustomRoute
+                    path="/sign-up"
+                    component={Modules.SignUp}
+                    exact
+                />
+
+                <CustomRoute
                     path="/dashboard"
                     component={Modules.Dashboard}
                     exact
@@ -50,6 +56,13 @@ const Routes = () => {
                 <CustomRoute
                     path="/accommodation/hotel/:id"
                     component={Modules.ViewHotel}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/rescue"
+                    component={Modules.Rescue}
                     exact
                     isPrivate
                 />

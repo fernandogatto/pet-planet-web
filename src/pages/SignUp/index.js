@@ -93,7 +93,7 @@ const SignUp = () => {
                 const dados = {
                     nome,
                     sobrenome,
-                    celular,
+                    celular: celular.replace(/[^0-9]+/g, ''),
                     email,
                     senha,
                 };
