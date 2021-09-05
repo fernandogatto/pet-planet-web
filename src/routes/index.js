@@ -3,7 +3,6 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
 } from 'react-router-dom';
 
 import CustomRoute from './CustomRoute';
@@ -37,6 +36,13 @@ const Routes = () => {
                 <CustomRoute
                     path="/adoption/pet/:id"
                     component={Modules.ViewPet}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/accommodation"
+                    component={Modules.Accommodation}
                     exact
                     isPrivate
                 />
