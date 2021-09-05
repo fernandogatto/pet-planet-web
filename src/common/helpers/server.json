@@ -148,5 +148,15 @@
       "client_id": 1,
       "id": 2
     }
+  ],
+  "reservas": [
+    {
+      "hotel_id": 1,
+      "client_id": 1,
+      "data_entrada": "05/09/2021",
+      "data_saida": "09/09/2021",
+      "observacao": "Meu cachorro não gosta de tomar banho.",
+      "id": 1
+    }
   ]
 }

@@ -24,7 +24,7 @@ import Menu from '../../components/Menu';
 
 import LoadingCard from '../../components/Loadings/LoadingCard';
 
-import HotelOperations from '../../common/rules/Hotel/PetOperations';
+import HotelOperations from '../../common/rules/Hotel/HotelOperations';
 
 const Accommodation = () => {
     const dispatch = useDispatch();

@@ -46,6 +46,13 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/accommodation/hotel/:id"
+                    component={Modules.ViewHotel}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

@@ -14,6 +14,7 @@ import {
     Pets,
     Attachment,
     Apartment,
+    CalendarToday,
     Call,
     ExitToApp,
     Menu as MenuIcon,
@@ -107,6 +108,14 @@ const Menu = () => {
                         >
                             <Apartment />
                             Hospedagem
+                        </NavLink>
+
+                        <NavLink
+                            to="/reserves"
+                            activeClassName="active"
+                        >
+                            <CalendarToday />
+                            Minhas reservas
                         </NavLink>
 
                         <NavLink
