@@ -113,9 +113,27 @@
     {
       "id": 1,
       "nome": "Um Hotel Bom pra Cachorro",
-      "endereco": "Rua ABC",
-      "telefone": "(21) 98765-4321",
-      "diaria": "123,00",
+      "endereco": "Rua Florença",
+      "numero": "123",
+      "bairro": "Porto da Pedra",
+      "cidade": "São Gonçalo",
+      "estado": "RJ",
+      "telefone": "(21) 99824-1221",
+      "diaria": "55,00",
+      "imagem": "https://rduirapuru.com.br/wp-content/uploads/2020/12/pet-hoel-1024x680.jpg",
+      "petqaceita": ""
+    },
+    {
+      "id": 2,
+      "nome": "Paraíso Pet Hotel",
+      "endereco": "Rua Marina do Bosque",
+      "numero": "22",
+      "bairro": "Barra da Tijuca",
+      "cidade": "Rio de Janeiro",
+      "estado": "RJ",
+      "telefone": "(21) 98864-3952",
+      "diaria": "60,00",
+      "imagem": "https://www.paraisopethotel.com/wp-content/uploads/2016/11/transporte-paraisopethotel.jpg",
       "petqaceita": ""
     }
   ],
@@ -129,6 +147,16 @@
       "pet_id": 1,
       "client_id": 1,
       "id": 2
+    }
+  ],
+  "reservas": [
+    {
+      "hotel_id": 1,
+      "client_id": 1,
+      "data_entrada": "05/09/2021",
+      "data_saida": "09/09/2021",
+      "observacao": "Meu cachorro não gosta de tomar banho.",
+      "id": 1
     }
   ]
 }

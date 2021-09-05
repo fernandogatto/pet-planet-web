@@ -9,25 +9,26 @@ import {
     Tooltip,
     IconButton,
     Button,
-    CircularProgress,
 } from '@material-ui/core';
 
 import { ArrowBack } from '@material-ui/icons';
 
 import {
-    ContainerViewPet,
-    ContentViewPet,
+    ContainerViewHotel,
+    ContentViewHotel,
 } from './styles';
 
 import { useAuth } from '../../common/contexts/Auth';
 
 import Menu from '../../components/Menu';
 
-import PetOperations from '../../common/rules/Pet/PetOperations';
+import ReserveDialog from '../../components/Dialogs/ReserveDialog';
 
-import AdoptionRequestOperations from '../../common/rules/AdoptionRequest/AdoptionRequestOperations';
+import HotelOperations from '../../common/rules/Hotel/HotelOperations';
 
-const ViewPet = ({ match }) => {
+import ReserveOperations from '../../common/rules/Reserve/ReserveOperations';
+
+const ViewHotel = ({ match }) => {
     const { id } = match.params;
 
     const history = useHistory();
@@ -36,7 +37,7 @@ const ViewPet = ({ match }) => {
 
     const { user } = useAuth();
 
-    const [pet, setPet] = useState({});
+    const [hotel, setHotel] = useState({});
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -44,23 +45,25 @@ const ViewPet = ({ match }) => {
 
     const [isSubmiting, setIsSubmiting] = useState(false);
 
+    const [dialogIsOpen, setDialogIsOpen] = useState(false);
+
     useEffect(() => {
-        getPet();
+        getHotel();
     }, []);
 
-    const getPet = async () => {
+    const getHotel = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(PetOperations.getPet(id));
+            const response = await dispatch(HotelOperations.getHotel(id));
 
             setIsLoading(false);
 
-            setPet(response);
+            setHotel(response);
         } catch (err) {
-            console.log('getPet', err);
+            console.log('getHotel', err);
 
             setIsLoading(false);
 
@@ -68,18 +71,15 @@ const ViewPet = ({ match }) => {
         }
     }
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (values) => {
         try {
-            const data = {
-                pet_id: id,
-                client_id: user.id,
-            };
-
             setIsSubmiting(true);
 
-            await dispatch(AdoptionRequestOperations.postAdoptionRequest(data));
+            await dispatch(ReserveOperations.postReserve(values));
 
             setIsSubmiting(false);
+
+            setDialogIsOpen(false);
 
             history.goBack();
         } catch (err) {
@@ -90,82 +90,82 @@ const ViewPet = ({ match }) => {
     }
 
     return (
-        <ContainerViewPet>
+        <ContainerViewHotel>
             <Menu />
 
+            <ReserveDialog
+                dialogOpen={dialogIsOpen}
+                handleCloseDialog={() => setDialogIsOpen(false)}
+                title="Fazer reserva"
+                values={{
+                    hotel_id: Number(id),
+                    client_id: user.id,
+                }}
+                isSubmiting={isSubmiting}
+                onSubmit={(data) => handleSubmit(data)}
+            />
+
             <Box className="container-page">
-                <ContentViewPet>
+                <ContentViewHotel>
                     <Box className="container-back-page">
                         <Tooltip title="Voltar" arrow>
                             <IconButton
                                 aria-label="Voltar página"
                                 component={Link}
-                                to="/adoption"
+                                to="/accommodation"
                             >
                                 <ArrowBack />
                             </IconButton>
                         </Tooltip>
 
-                        <h1>Adoção</h1>
+                        <h1>Hotel</h1>
                     </Box>
 
-                    {!isLoading && !hasError && pet && pet.nome !== '' && (
+                    {!isLoading && !hasError && hotel && hotel.nome !== '' && (
                         <Box className="container-info">
                             <Box className="container-image">
                                 <img
-                                    src={pet.imagem}
-                                    alt={pet.nome}
+                                    src={hotel.imagem}
+                                    alt={hotel.nome}
                                 />
                             </Box>
 
                             <Box className="container-description">
                                 <Box className="container-title">
-                                    <h2>{pet.nome}</h2>
+                                    <h2>{hotel.nome}</h2>
                                 </Box>
 
                                 <Box className="container-registry">
-                                    <p>Espécie: {pet.especie}</p>
+                                    <p>Endereço: {hotel.endereco}, {hotel.numero} - {hotel.bairro}</p>
 
-                                    <p>Sexo: {pet.sexo}</p>
+                                    <p>{hotel.cidade}, {hotel.estado}</p>
 
-                                    <p>Idade: {pet.idade}</p>
+                                    <p>{hotel.telefone}</p>
 
-                                    <p>Porte: {pet.porte}</p>
-                                </Box>
-
-                                <Box className="container-registry">
-                                    <p>{pet.descricao}</p>
+                                    <p>Diária: {hotel.diaria}</p>
                                 </Box>
 
                                 <Box mt={2} className="grid-button">
                                     <Box className="wrapper">
-                                        {isSubmiting && (
-                                            <CircularProgress
-                                                className="circular-progress"
-                                                style={{ width: 24, height: 24 }}
-                                            />
-                                        )}
-
                                         <Button
-                                            aria-label="Pedido de adoção"
-                                            type="submit"
+                                            aria-label="Fazer reserva"
                                             variant="contained"
                                             color="primary"
                                             size="large"
                                             disabled={isSubmiting}
-                                            onClick={handleSubmit}
+                                            onClick={() => setDialogIsOpen(true)}
                                         >
-                                            Adotar
+                                            Fazer reserva
                                         </Button>
                                     </Box>
                                 </Box>
                             </Box>
                         </Box>
                     )}
-                </ContentViewPet>
+                </ContentViewHotel>
             </Box>
-        </ContainerViewPet>
+        </ContainerViewHotel>
     )
 };
 
-export default ViewPet;
+export default ViewHotel;

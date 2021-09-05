@@ -1,13 +1,13 @@
-import AdoptionRequestService from '../../services/AdoptionRequestService';
+import ReserveService from '../../services/ReserveService';
 
 import Toast from '../../helpers/Toast';
 
 import { getErrorMessage } from '../../handlers/ErrorHandler';
 
-const AdoptionRequestOperations = {
-    getAdoptionRequests: () => async () => {
+const ReserveOperations = {
+    getReserves: () => async () => {
         try {
-            const response = await AdoptionRequestService.getAdoptionRequests();
+            const response = await ReserveService.getReserves();
 
             return response.data;
         } catch (error) {
@@ -17,9 +17,9 @@ const AdoptionRequestOperations = {
         }
     },
 
-    getAdoptionRequest: (id) => async () => {
+    getReserve: (id) => async () => {
         try {
-            const response = await AdoptionRequestService.getAdoptionRequest(id);
+            const response = await ReserveService.getReserve(id);
 
             return response.data;
         } catch (error) {
@@ -29,11 +29,11 @@ const AdoptionRequestOperations = {
         }
     },
 
-    postAdoptionRequest: (data) => async () => {
+    postReserve: (data) => async () => {
         try {
-            const response = await AdoptionRequestService.postAdoptionRequest(data);
+            const response = await ReserveService.postReserve(data);
 
-            Toast.showSuccess('Pedido de adoção feito com sucesso');
+            Toast.showSuccess('Reserva feita com sucesso');
 
             return response.data;
         } catch (error) {
@@ -44,4 +44,4 @@ const AdoptionRequestOperations = {
     },
 }
 
-export default AdoptionRequestOperations;
+export default ReserveOperations;
