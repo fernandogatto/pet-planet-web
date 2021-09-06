@@ -40,6 +40,21 @@ const Routes = () => {
                 />
 
                 <CustomRoute
+                    path="/adoption/create"
+                    component={Modules.CreateEditPet}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/adoption/edit/pet/:id"
+                    component={Modules.CreateEditPet}
+                    exact
+                    isPrivate
+
+                />
+
+                <CustomRoute
                     path="/adoption/pet/:id"
                     component={Modules.ViewPet}
                     exact
@@ -63,6 +78,13 @@ const Routes = () => {
                 <CustomRoute
                     path="/rescue"
                     component={Modules.Rescue}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/adoption-requests"
+                    component={Modules.ViewAdoptionRequests}
                     exact
                     isPrivate
                 />
