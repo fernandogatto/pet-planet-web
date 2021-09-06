@@ -40,6 +40,14 @@ export const ContentAdoption = withTheme(styled.div`
 export const ItemCard = withTheme(styled.div`
     .card-container {
         padding: 0;
+
+        a:hover {
+            color: ${props => props.theme.palette.text.secondary};
+        }
+
+        .container-button {
+            margin-left: auto;
+        }
     }
 
     .image-item {
