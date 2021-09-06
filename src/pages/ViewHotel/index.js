@@ -136,13 +136,15 @@ const ViewHotel = ({ match }) => {
                                 </Box>
 
                                 <Box className="container-registry">
-                                    <p>Endereço: {hotel.endereco}, {hotel.numero} - {hotel.bairro}</p>
+                                    <p>Endereço: {hotel.logradouro}, {hotel.numero} - {hotel.bairro}</p>
 
-                                    <p>{hotel.cidade}, {hotel.estado}</p>
+                                    <p>{hotel.municipio}, {hotel.estado}</p>
 
-                                    <p>{hotel.telefone.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}</p>
+                                    {hotel.telefone && hotel.telefone !== '' && (
+                                        <p>{hotel.telefone.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}</p>
+                                    )}
 
-                                    <p>Diária: {hotel.diaria}</p>
+                                    <p>Diária: R$ {hotel.diaria}</p>
                                 </Box>
 
                                 <Box mt={2} className="grid-button">

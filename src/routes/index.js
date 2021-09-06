@@ -69,6 +69,20 @@ const Routes = () => {
                 />
 
                 <CustomRoute
+                    path="/accommodation/create"
+                    component={Modules.CreateEditHotel}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/accommodation/edit/hotel/:id"
+                    component={Modules.CreateEditHotel}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
                     path="/accommodation/hotel/:id"
                     component={Modules.ViewHotel}
                     exact
