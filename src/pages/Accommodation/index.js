@@ -12,7 +12,15 @@ import {
     CardMedia,
     Button,
     Typography,
+    Tooltip,
+    IconButton,
 } from '@material-ui/core';
+
+import {
+    Add,
+    Create,
+    Delete,
+} from '@material-ui/icons';
 
 import {
     ContainerAccommodation,
@@ -24,6 +32,8 @@ import Menu from '../../components/Menu';
 
 import LoadingCard from '../../components/Loadings/LoadingCard';
 
+import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
+
 import HotelOperations from '../../common/rules/Hotel/HotelOperations';
 
 const Accommodation = () => {
@@ -34,6 +44,10 @@ const Accommodation = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const [hasError, setHasError] = useState(false);
+
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+    const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
         getAccommodation();
@@ -59,14 +73,61 @@ const Accommodation = () => {
         }
     }
 
+    const handleConfirmDelete = (id, index) => {
+        setDeletedItem({
+            id,
+            index,
+        });
+
+        setOpenConfirmDialog(true);
+    }
+
+    const handleDelete = async (item) => {
+        let _items = [...accommodations];
+
+        _items.splice(item.index, 1);
+
+        setAccommodations(_items);
+
+        await dispatch(HotelOperations.deleteHotelById(item.id));
+
+        setDeletedItem({});
+    }
+
     return (
         <ContainerAccommodation>
             <Menu />
+
+            <ConfirmDialog
+                dialogOpen={openConfirmDialog}
+                handleCloseDialog={() => {
+                    setDeletedItem({});
+
+                    setOpenConfirmDialog(false);
+                }}
+                handleConfirmAction={() => {
+                    handleDelete(deletedItem);
+
+                    setOpenConfirmDialog(false);
+                }}
+                title="Excluir Hotel"
+                message="Tem certeza que deseja excluir este item?"
+            />
 
             <Box className="container-page">
                 <ContentAccommodation>
                     <Box className="container-header-page">
                         <h1>Hospedagem</h1>
+
+                        <Tooltip title="Novo hotel" arrow>
+                            <IconButton
+                                aria-label="Novo hotel"
+                                component={Link}
+                                to="/accommodation/create"
+                            >
+                                <Add />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
 
                     <LoadingCard
@@ -77,7 +138,7 @@ const Accommodation = () => {
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && accommodations && accommodations.length > 0 && accommodations.map(item => (
+                        {!isLoading && !hasError && accommodations && accommodations.length > 0 && accommodations.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardMedia
@@ -100,7 +161,7 @@ const Accommodation = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {item.endereco}, {item.numero} - {item.bairro}
+                                            {item.logradouro}, {item.numero} - {item.bairro}
                                         </Typography>
 
                                         <Typography
@@ -108,7 +169,7 @@ const Accommodation = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {item.cidade}, {item.estado}
+                                            {item.municipio}, {item.estado}
                                         </Typography>
 
                                         <Typography
@@ -137,6 +198,29 @@ const Accommodation = () => {
                                         >
                                             Ver detalhes
                                         </Button>
+
+                                        <Box className="container-button">
+                                            <Tooltip title="Editar" arrow>
+                                                <IconButton
+                                                    aria-label="Editar"
+                                                    size="small"
+                                                    component={Link}
+                                                    to={`/accommodation/edit/hotel/${item.id}`}
+                                                >
+                                                    <Create />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                            <Tooltip title="Excluir" arrow>
+                                                <IconButton
+                                                    aria-label="Excluir"
+                                                    size="small"
+                                                    onClick={() => handleConfirmDelete(item.id, index)}
+                                                >
+                                                    <Delete />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Box>
                                     </CardActions>
                                 </Card>
                             </ItemCard>
