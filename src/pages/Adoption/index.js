@@ -12,7 +12,15 @@ import {
     CardMedia,
     Button,
     Typography,
+    Tooltip,
+    IconButton,
 } from '@material-ui/core';
+
+import {
+    Add,
+    Create,
+    Delete,
+} from '@material-ui/icons';
 
 import {
     ContainerAdoption,
@@ -24,6 +32,8 @@ import Menu from '../../components/Menu';
 
 import LoadingCard from '../../components/Loadings/LoadingCard';
 
+import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
+
 import PetOperations from '../../common/rules/Pet/PetOperations';
 
 const Adoption = () => {
@@ -34,6 +44,10 @@ const Adoption = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     const [hasError, setHasError] = useState(false);
+
+    const [openConfirmDialog, setOpenConfirmDialog] = useState(false);
+
+    const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
         getPets();
@@ -59,14 +73,61 @@ const Adoption = () => {
         }
     }
 
+    const handleConfirmDelete = (id, index) => {
+        setDeletedItem({
+            id,
+            index,
+        });
+
+        setOpenConfirmDialog(true);
+    }
+
+    const handleDelete = async (item) => {
+        let _items = [...pets];
+
+        _items.splice(item.index, 1);
+
+        setPets(_items);
+
+        await dispatch(PetOperations.deletePetById(item.id));
+
+        setDeletedItem({});
+    }
+
     return (
         <ContainerAdoption>
             <Menu />
+
+            <ConfirmDialog
+                dialogOpen={openConfirmDialog}
+                handleCloseDialog={() => {
+                    setDeletedItem({});
+
+                    setOpenConfirmDialog(false);
+                }}
+                handleConfirmAction={() => {
+                    handleDelete(deletedItem);
+
+                    setOpenConfirmDialog(false);
+                }}
+                title="Excluir Pet"
+                message="Tem certeza que deseja excluir este item?"
+            />
 
             <Box className="container-page">
                 <ContentAdoption>
                     <Box className="container-header-page">
                         <h1>Adoção</h1>
+
+                        <Tooltip title="Novo pet" arrow>
+                            <IconButton
+                                aria-label="Novo pet"
+                                component={Link}
+                                to="/adoption/create"
+                            >
+                                <Add />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
 
                     <LoadingCard
@@ -77,7 +138,7 @@ const Adoption = () => {
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && pets && pets.length > 0 && pets.map(item => (
+                        {!isLoading && !hasError && pets && pets.length > 0 && pets.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardMedia
@@ -130,6 +191,7 @@ const Adoption = () => {
 
                                     <CardActions>
                                         <Button
+                                            aria-label="Ver detalhes do pet"
                                             size="small"
                                             color="primary"
                                             component={Link}
@@ -137,6 +199,29 @@ const Adoption = () => {
                                         >
                                             Ver detalhes
                                         </Button>
+
+                                        <Box className="container-button">
+                                            <Tooltip title="Editar" arrow>
+                                                <IconButton
+                                                    aria-label="Editar"
+                                                    size="small"
+                                                    component={Link}
+                                                    to={`/adoption/edit/pet/${item.id}`}
+                                                >
+                                                    <Create />
+                                                </IconButton>
+                                            </Tooltip>
+
+                                            <Tooltip title="Excluir" arrow>
+                                                <IconButton
+                                                    aria-label="Excluir"
+                                                    size="small"
+                                                    onClick={() => handleConfirmDelete(item.id, index)}
+                                                >
+                                                    <Delete />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </Box>
                                     </CardActions>
                                 </Card>
                             </ItemCard>
