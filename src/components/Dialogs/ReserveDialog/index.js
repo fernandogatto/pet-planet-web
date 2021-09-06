@@ -74,8 +74,8 @@ const ReserveDialog = ({
             const data = {
                 hotel_id: values.hotel_id,
                 client_id: values.client_id,
-                data_entrada: format(data_entrada, 'dd/MM/yyyy'),
-                data_saida: format(data_saida, 'dd/MM/yyyy'),
+                data_entrada: format(data_entrada, 'yyyy-MM-dd'),
+                data_saida: format(data_saida, 'yyyy-MM-dd'),
                 observacao,
             };
 

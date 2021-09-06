@@ -140,7 +140,7 @@ const ViewHotel = ({ match }) => {
 
                                     <p>{hotel.cidade}, {hotel.estado}</p>
 
-                                    <p>{hotel.telefone}</p>
+                                    <p>{hotel.telefone.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}</p>
 
                                     <p>Diária: {hotel.diaria}</p>
                                 </Box>
