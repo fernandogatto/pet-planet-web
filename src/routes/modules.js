@@ -10,6 +10,7 @@ import ViewHotel from '../pages/ViewHotel';
 import Rescue from '../pages/Rescue';
 import CreateRescue from '../pages/CreateRescue';
 import ViewAdoptionRequests from '../pages/ViewAdoptionRequests';
+import Employees from '../pages/Employees';
 
 export {
     SignIn,
@@ -24,4 +25,5 @@ export {
     Rescue,
     CreateRescue,
     ViewAdoptionRequests,
+    Employees,
 };

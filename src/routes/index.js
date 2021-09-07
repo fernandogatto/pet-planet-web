@@ -109,6 +109,13 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/employees"
+                    component={Modules.Employees}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )
