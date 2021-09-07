@@ -56,6 +56,11 @@ const theme = createTheme({
                 borderRadius: 12,
             },
         },
+        MuiDrawer: {
+            paper: {
+                width: 255,
+            }
+        }
     },
 });
 
