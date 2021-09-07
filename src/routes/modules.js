@@ -11,6 +11,7 @@ import Rescue from '../pages/Rescue';
 import CreateRescue from '../pages/CreateRescue';
 import ViewAdoptionRequests from '../pages/ViewAdoptionRequests';
 import Employees from '../pages/Employees';
+import CreateEditEmployee from '../pages/CreateEditEmployee';
 
 export {
     SignIn,
@@ -26,4 +27,5 @@ export {
     CreateRescue,
     ViewAdoptionRequests,
     Employees,
+    CreateEditEmployee,
 };

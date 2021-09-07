@@ -17,6 +17,18 @@ const EmployeeOperations = {
         }
     },
 
+    getEmployee: (id) => async () => {
+        try {
+            const response = await EmployeeService.getEmployee(id);
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
+
     createEmployee: (data) => async () => {
         try {
             const response = await EmployeeService.createEmployee(data);

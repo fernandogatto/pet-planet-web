@@ -116,6 +116,20 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/employees/create"
+                    component={Modules.CreateEditEmployee}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/employees/edit/:id"
+                    component={Modules.CreateEditEmployee}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

@@ -11,6 +11,7 @@ import {
 
 import {
     Home,
+    Person,
     Pets,
     Attachment,
     Apartment,
@@ -84,6 +85,14 @@ const Menu = () => {
                         >
                             <Home />
                             Início
+                        </NavLink>
+
+                        <NavLink
+                            to="/employees"
+                            activeClassName="active"
+                        >
+                            <Person />
+                            Funcionários
                         </NavLink>
 
                         <NavLink
