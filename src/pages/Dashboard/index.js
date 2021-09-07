@@ -293,9 +293,6 @@ const Dashboard = () => {
                             )}
                         </Box>
                     </Box>
-                    <Box>
-                        <SimpleCard />
-                    </Box>
                 </ContentDashboard>
             </Box>
         </ContainerDashboard>
