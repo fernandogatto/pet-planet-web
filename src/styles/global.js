@@ -75,7 +75,6 @@ export default createGlobalStyle`
     }
 
     .container-header-page {
-        border: 1px solid red;
         display: flex;
         align-items: center;
         margin-bottom: 32px;
