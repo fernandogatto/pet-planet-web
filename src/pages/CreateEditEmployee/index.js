@@ -132,15 +132,15 @@ const CreateEditEmployee = ({ match }) => {
             ) {
                 const data = {
                     nome,
-                    celular: celular.replace(/[^0-9]+/g, ''),
+                    celular,
                     email,
                 };
 
                 setIsSubmiting(true);
 
-                await isUpdate
-                    ? dispatch(EmployeeOperations.updateEmployeeById(id, data))
-                    : dispatch(EmployeeOperations.createEmployee(data));
+                isUpdate
+                    ? await dispatch(EmployeeOperations.updateEmployeeById(id, data))
+                    : await dispatch(EmployeeOperations.createEmployee(data));
 
                 setIsSubmiting(false);
 

@@ -36,8 +36,8 @@ const ReserveDialog = ({
     onSubmit,
 }) => {
     const [inputDateData, setInputDateData] = useState({
-        data_entrada: new Date(),
-        data_saida: new Date(),
+        dataEntrada: new Date(),
+        dataSaida: new Date(),
     });
 
     const [inputTextData, setInputTextData] = useState({
@@ -60,8 +60,8 @@ const ReserveDialog = ({
 
     const handleSubmit = () => {
         const {
-            data_entrada,
-            data_saida,
+            dataEntrada,
+            dataSaida,
         } = inputDateData;
 
         const { observacao } = inputTextData;
@@ -72,10 +72,10 @@ const ReserveDialog = ({
 
         if (observacao !== '') {
             const data = {
-                hotel_id: values.hotel_id,
-                client_id: values.client_id,
-                data_entrada: format(data_entrada, 'yyyy-MM-dd'),
-                data_saida: format(data_saida, 'yyyy-MM-dd'),
+                hotel: values.hotel,
+                usuario: values.usuario,
+                dataEntrada: format(dataEntrada, 'yyyy-MM-dd'),
+                dataSaida: format(dataSaida, 'yyyy-MM-dd'),
                 observacao,
             };
 
@@ -110,11 +110,11 @@ const ReserveDialog = ({
                                 variant="inline"
                                 inputVariant="outlined"
                                 orientation="portrait"
-                                name="data_entrada"
+                                name="dataEntrada"
                                 label="Data de entrada"
                                 format="dd/MM/yyyy"
-                                value={inputDateData.data_entrada}
-                                onChange={(date) => handleDateChange(date, "data_entrada")}
+                                value={inputDateData.dataEntrada}
+                                onChange={(date) => handleDateChange(date, "dataEntrada")}
                                 disabled={isSubmiting}
                                 disablePast
                                 minDateMessage="A data não deve ser anterior à data atual"
@@ -126,15 +126,15 @@ const ReserveDialog = ({
                                 variant="inline"
                                 inputVariant="outlined"
                                 orientation="portrait"
-                                name="data_saida"
-                                id="data_saida"
+                                name="dataSaida"
+                                id="dataSaida"
                                 label="Data de saída"
                                 format="dd/MM/yyyy"
-                                value={inputDateData.data_saida}
-                                onChange={(date) => handleDateChange(date, "data_saida")}
+                                value={inputDateData.dataSaida}
+                                onChange={(date) => handleDateChange(date, "dataSaida")}
                                 disabled={isSubmiting}
                                 disablePast
-                                minDate={inputDateData.data_entrada}
+                                minDate={inputDateData.dataEntrada}
                                 minDateMessage="A data de saída não deve ser anterior à data  de entrada"
                                 className="input"
                             />

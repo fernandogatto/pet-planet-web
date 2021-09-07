@@ -183,11 +183,11 @@ const CreateEditHotel = ({ match }) => {
             ) {
                 const data = {
                     nome,
-                    telefone: telefone.replace(/[^0-9]+/g, ''),
+                    telefone,
                     diaria,
                     imagem,
                     logradouro,
-                    numero,
+                    numero: Number(numero),
                     bairro,
                     municipio,
                     estado,
@@ -195,9 +195,9 @@ const CreateEditHotel = ({ match }) => {
 
                 setIsSubmiting(true);
 
-                await isUpdate
-                    ? dispatch(HotelOperations.updateHotelById(id, data))
-                    : dispatch(HotelOperations.createHotel(data));
+                isUpdate
+                    ? await dispatch(HotelOperations.updateHotelById(id, data))
+                    : await dispatch(HotelOperations.createHotel(data));
 
                 setIsSubmiting(false);
 

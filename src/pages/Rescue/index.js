@@ -169,7 +169,7 @@ const Rescue = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Celular: {item.celular.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}
+                                            Celular: {item.celular}
                                         </Typography>
 
                                         <Typography
@@ -177,7 +177,7 @@ const Rescue = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {format(parseISO(item.data_horario), "dd/MM/yyyy 'às' HH:mm")}
+                                            {format(parseISO(item.dataHorario), "dd/MM/yyyy 'às' HH:mm")}
                                         </Typography>
 
                                         <Typography

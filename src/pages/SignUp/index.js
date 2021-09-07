@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+
+import { useDispatch } from 'react-redux';
 
 import InputMask from 'react-input-mask';
 
@@ -17,10 +19,15 @@ import { ArrowBack } from '@material-ui/icons';
 
 import { ContainerSignUp, SignUpBackground } from './styles';
 
+import UserOperations from '../../common/rules/User/UserOperations';
+
 const SignUp = () => {
+    const history = useHistory();
+
+    const dispatch = useDispatch();
+
     const [inputTextData, setInputTextData] = useState({
         nome: '',
-        sobrenome: '',
         celular: '',
         email: '',
         senha: '',
@@ -29,7 +36,6 @@ const SignUp = () => {
 
     const [inputError, setInputError] = useState({
         nome: false,
-        sobrenome: false,
         celular: false,
         tamanhoCelular: false,
         email: false,
@@ -58,11 +64,10 @@ const SignUp = () => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         try {
             const {
                 nome,
-                sobrenome,
                 celular,
                 email,
                 senha,
@@ -71,7 +76,6 @@ const SignUp = () => {
 
             setInputError({
                 nome: nome === '' ? true : false,
-                sobrenome: sobrenome === '' ? true : false,
                 celular: celular === '' ? true : false,
                 tamanhoCelular: celular.length < 14 ? true : false,
                 email: email === '' ? true : false,
@@ -82,7 +86,6 @@ const SignUp = () => {
 
             if (
                 nome !== '' &&
-                sobrenome !== '' &&
                 celular !== '' &&
                 !inputError.tamanhoCelular < 14 &&
                 email !== '' &&
@@ -90,19 +93,20 @@ const SignUp = () => {
                 confirmarSenha !== '' &&
                 !inputError.senhasDiferentes
             ) {
-                const dados = {
+                const data = {
                     nome,
-                    sobrenome,
-                    celular: celular.replace(/[^0-9]+/g, ''),
+                    celular,
                     email,
                     senha,
                 };
 
                 setIsSubmiting(true);
 
-                console.log('submit', dados);
+                await dispatch(UserOperations.createUser(data));
 
                 setIsSubmiting(false);
+
+                history.goBack();
             }
         } catch (err) {
             console.log('handleSubmit', err);
@@ -127,41 +131,20 @@ const SignUp = () => {
                 <h1>Cadastrar usuário</h1>
 
                 <Box className="container-form">
-                    <Box className="container-flex">
-                        <Box className="item-flex">
-                            <TextField
-                                required
-                                error={inputError.nome}
-                                variant="outlined"
-                                type="text"
-                                name="nome"
-                                label="Nome"
-                                fullWidth
-                                value={inputTextData.nome}
-                                onChange={handleInputTextChange}
-                                disabled={isSubmiting}
-                                className="input"
-                                helperText={inputError.nome && 'Campo obrigatório'}
-                            />
-                        </Box>
-
-                        <Box className="item-flex">
-                            <TextField
-                                required
-                                error={inputError.sobrenome}
-                                variant="outlined"
-                                type="text"
-                                name="sobrenome"
-                                label="Sobrenome"
-                                fullWidth
-                                value={inputTextData.sobrenome}
-                                onChange={handleInputTextChange}
-                                disabled={isSubmiting}
-                                className="input"
-                                helperText={inputError.sobrenome && 'Campo obrigatório'}
-                            />
-                        </Box>
-                    </Box>
+                    <TextField
+                        required
+                        error={inputError.nome}
+                        variant="outlined"
+                        type="text"
+                        name="nome"
+                        label="Nome"
+                        fullWidth
+                        value={inputTextData.nome}
+                        onChange={handleInputTextChange}
+                        disabled={isSubmiting}
+                        className="input"
+                        helperText={inputError.nome && 'Campo obrigatório'}
+                    />
 
                     <TextField
                         required

@@ -88,13 +88,15 @@ const Menu = () => {
                             Início
                         </NavLink>
 
-                        <NavLink
-                            to="/employees"
-                            activeClassName="active"
-                        >
-                            <Person />
-                            Funcionários
-                        </NavLink>
+                        {user.role === 'ADMIN' && (
+                            <NavLink
+                                to="/employees"
+                                activeClassName="active"
+                            >
+                                <Person />
+                                Funcionários
+                            </NavLink>
+                        )}
 
                         <NavLink
                             to="/adoption"
@@ -125,27 +127,29 @@ const Menu = () => {
                             activeClassName="active"
                         >
                             <CalendarToday />
-                            Minhas reservas
+                            Pedidos de reserva
                         </NavLink>
 
-                        <NavLink
-                            to="/tours"
-                            activeClassName="active"
-                        >
-                            <DirectionsWalk />
-                            Passeios
-                        </NavLink>
+                        {user.role === 'ADMIN' && (
+                            <NavLink
+                                to="/tours"
+                                activeClassName="active"
+                            >
+                                <DirectionsWalk />
+                                Passeios
+                            </NavLink>
+                        )}
 
                         <NavLink
                             to={
-                                user.pefil === 'Cliente'
-                                    ? '/rescue/create'
-                                    : '/rescue'
+                                user.role === 'ADMIN'
+                                    ? '/rescue'
+                                    : '/rescue/create'
                             }
                             activeClassName="active"
                         >
                             <Call />
-                            Pedido de resgate
+                            Pedidos de resgate
                         </NavLink>
                     </nav>
             )}

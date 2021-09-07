@@ -26,6 +26,8 @@ import ReserveDialog from '../../components/Dialogs/ReserveDialog';
 
 import HotelOperations from '../../common/rules/Hotel/HotelOperations';
 
+import UserOperations from '../../common/rules/User/UserOperations';
+
 import ReserveOperations from '../../common/rules/Reserve/ReserveOperations';
 
 const ViewHotel = ({ match }) => {
@@ -43,12 +45,22 @@ const ViewHotel = ({ match }) => {
 
     const [hasError, setHasError] = useState(false);
 
+    const [client, setClient] = useState({});
+
+    const [isLoadingClient, setIsLoadingClient] = useState(false);
+
+    const [hasErrorClient, setHasErrorClient] = useState(false);
+
     const [isSubmiting, setIsSubmiting] = useState(false);
 
     const [dialogIsOpen, setDialogIsOpen] = useState(false);
 
     useEffect(() => {
         getHotel();
+
+        if (user.role === 'CLIENTE') {
+            getUserClient();
+        }
     }, []);
 
     const getHotel = async () => {
@@ -68,6 +80,26 @@ const ViewHotel = ({ match }) => {
             setIsLoading(false);
 
             setHasError(true);
+        }
+    }
+
+    const getUserClient = async () => {
+        try {
+            setIsLoadingClient(true);
+
+            setHasErrorClient(false);
+
+            const response = await dispatch(UserOperations.getUser(user.uid));
+
+            setIsLoadingClient(false);
+
+            setClient(response);
+        } catch (err) {
+            console.log('getUserClient', err);
+
+            setIsLoadingClient(false);
+
+            setHasErrorClient(true);
         }
     }
 
@@ -98,8 +130,8 @@ const ViewHotel = ({ match }) => {
                 handleCloseDialog={() => setDialogIsOpen(false)}
                 title="Fazer reserva"
                 values={{
-                    hotel_id: Number(id),
-                    client_id: user.id,
+                    hotel,
+                    usuario: client,
                 }}
                 isSubmiting={isSubmiting}
                 onSubmit={(data) => handleSubmit(data)}
@@ -140,27 +172,27 @@ const ViewHotel = ({ match }) => {
 
                                     <p>{hotel.municipio}, {hotel.estado}</p>
 
-                                    {hotel.telefone && hotel.telefone !== '' && (
-                                        <p>{hotel.telefone.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}</p>
-                                    )}
+                                    <p>{hotel.telefone}</p>
 
                                     <p>Diária: R$ {hotel.diaria}</p>
                                 </Box>
 
-                                <Box mt={2} className="grid-button">
-                                    <Box className="wrapper">
-                                        <Button
-                                            aria-label="Fazer reserva"
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            disabled={isSubmiting}
-                                            onClick={() => setDialogIsOpen(true)}
-                                        >
-                                            Fazer reserva
-                                        </Button>
+                                {user.role === 'CLIENTE' && (
+                                    <Box mt={2} className="grid-button">
+                                        <Box className="wrapper">
+                                            <Button
+                                                aria-label="Fazer reserva"
+                                                variant="contained"
+                                                color="primary"
+                                                size="large"
+                                                disabled={isSubmiting}
+                                                onClick={() => setDialogIsOpen(true)}
+                                            >
+                                                Fazer reserva
+                                            </Button>
+                                        </Box>
                                     </Box>
-                                </Box>
+                                )}
                             </Box>
                         </Box>
                     )}

@@ -28,6 +28,8 @@ import {
     ItemCard,
 } from './styles';
 
+import { useAuth } from '../../common/contexts/Auth';
+
 import Menu from '../../components/Menu';
 
 import LoadingCard from '../../components/Loadings/LoadingCard';
@@ -38,6 +40,8 @@ import HotelOperations from '../../common/rules/Hotel/HotelOperations';
 
 const Accommodation = () => {
     const dispatch = useDispatch();
+
+    const { user } = useAuth();
 
     const [accommodations, setAccommodations] = useState([]);
 
@@ -67,9 +71,9 @@ const Accommodation = () => {
         } catch (err) {
             console.log('getAccommodation', err);
 
-            setIsLoading(true);
+            setIsLoading(false);
 
-            setHasError(false);
+            setHasError(true);
         }
     }
 
@@ -119,15 +123,17 @@ const Accommodation = () => {
                     <Box className="container-header-page">
                         <h1>Hospedagem</h1>
 
-                        <Tooltip title="Novo hotel" arrow>
-                            <IconButton
-                                aria-label="Novo hotel"
-                                component={Link}
-                                to="/accommodation/create"
-                            >
-                                <Add />
-                            </IconButton>
-                        </Tooltip>
+                        {user.role === 'ADMIN' && (
+                            <Tooltip title="Novo hotel" arrow>
+                                <IconButton
+                                    aria-label="Novo hotel"
+                                    component={Link}
+                                    to="/accommodation/create"
+                                >
+                                    <Add />
+                                </IconButton>
+                            </Tooltip>
+                        )}
                     </Box>
 
                     <LoadingCard
@@ -138,6 +144,10 @@ const Accommodation = () => {
                     />
 
                     <Box className="container-grid">
+                        {!isLoading && !hasError && accommodations && accommodations.length === 0 && (
+                            <p>Nenhum item encontrado</p>
+                        )}
+
                         {!isLoading && !hasError && accommodations && accommodations.length > 0 && accommodations.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
@@ -177,7 +187,7 @@ const Accommodation = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {item.telefone.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}
+                                            {item.telefone}
                                         </Typography>
 
                                         <Typography
@@ -185,7 +195,7 @@ const Accommodation = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Diária: {item.diaria}
+                                            Diária: R$ {item.diaria}
                                         </Typography>
                                     </CardContent>
 
@@ -199,28 +209,30 @@ const Accommodation = () => {
                                             Ver detalhes
                                         </Button>
 
-                                        <Box className="container-button">
-                                            <Tooltip title="Editar" arrow>
-                                                <IconButton
-                                                    aria-label="Editar"
-                                                    size="small"
-                                                    component={Link}
-                                                    to={`/accommodation/edit/hotel/${item.id}`}
-                                                >
-                                                    <Create />
-                                                </IconButton>
-                                            </Tooltip>
+                                        {user.role === 'ADMIN' && (
+                                            <Box className="container-button">
+                                                <Tooltip title="Editar" arrow>
+                                                    <IconButton
+                                                        aria-label="Editar"
+                                                        size="small"
+                                                        component={Link}
+                                                        to={`/accommodation/edit/hotel/${item.id}`}
+                                                    >
+                                                        <Create />
+                                                    </IconButton>
+                                                </Tooltip>
 
-                                            <Tooltip title="Excluir" arrow>
-                                                <IconButton
-                                                    aria-label="Excluir"
-                                                    size="small"
-                                                    onClick={() => handleConfirmDelete(item.id, index)}
-                                                >
-                                                    <Delete />
-                                                </IconButton>
-                                            </Tooltip>
-                                        </Box>
+                                                <Tooltip title="Excluir" arrow>
+                                                    <IconButton
+                                                        aria-label="Excluir"
+                                                        size="small"
+                                                        onClick={() => handleConfirmDelete(item.id, index)}
+                                                    >
+                                                        <Delete />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            </Box>
+                                        )}
                                     </CardActions>
                                 </Card>
                             </ItemCard>

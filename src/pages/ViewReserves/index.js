@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
+
+import { format, parseISO } from 'date-fns';
 
 import {
     Box,
@@ -10,21 +10,18 @@ import {
     CardActions,
     CardContent,
     CardMedia,
-    Button,
-    Typography,
     Tooltip,
     IconButton,
+    Typography,
 } from '@material-ui/core';
 
 import {
-    Add,
-    Create,
     Delete,
 } from '@material-ui/icons';
 
 import {
-    ContainerAdoption,
-    ContentAdoption,
+    ContainerViewReserves,
+    ContentViewReserves,
     ItemCard,
 } from './styles';
 
@@ -36,14 +33,14 @@ import LoadingCard from '../../components/Loadings/LoadingCard';
 
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
-import PetOperations from '../../common/rules/Pet/PetOperations';
+import ReserveOperations from '../../common/rules/Reserve/ReserveOperations';
 
-const Adoption = () => {
+const ViewReserves = () => {
     const dispatch = useDispatch();
 
     const { user } = useAuth();
 
-    const [pets, setPets] = useState([]);
+    const [reserves, setReserves] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -54,22 +51,28 @@ const Adoption = () => {
     const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
-        getPets();
+        getReserves();
     }, []);
 
-    const getPets = async () => {
+    const getReserves = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(PetOperations.getPets());
+            let response = [];
+
+            if (user.role === 'CLIENTE') {
+                response = await dispatch(ReserveOperations.getReserveByUserId(user.uid));
+            } else {
+                response = await dispatch(ReserveOperations.getReserves());
+            }
 
             setIsLoading(false);
 
-            setPets(response);
+            setReserves(response);
         } catch (err) {
-            console.log('getPets', err);
+            console.log('getReserves', err);
 
             setIsLoading(false);
 
@@ -87,19 +90,19 @@ const Adoption = () => {
     }
 
     const handleDelete = async (item) => {
-        let _items = [...pets];
+        let _items = [...reserves];
 
         _items.splice(item.index, 1);
 
-        setPets(_items);
+        setReserves(_items);
 
-        await dispatch(PetOperations.deletePetById(item.id));
+        await dispatch(ReserveOperations.deleteReserveById(item.id));
 
         setDeletedItem({});
     }
 
     return (
-        <ContainerAdoption>
+        <ContainerViewReserves>
             <Menu />
 
             <ConfirmDialog
@@ -114,46 +117,34 @@ const Adoption = () => {
 
                     setOpenConfirmDialog(false);
                 }}
-                title="Excluir Pet"
+                title="Excluir Reserva"
                 message="Tem certeza que deseja excluir este item?"
             />
 
             <Box className="container-page">
-                <ContentAdoption>
+                <ContentViewReserves>
                     <Box className="container-header-page">
-                        <h1>Adoção</h1>
-
-                        {user.role === 'ADMIN' && (
-                            <Tooltip title="Novo pet" arrow>
-                                <IconButton
-                                    aria-label="Novo pet"
-                                    component={Link}
-                                    to="/adoption/create"
-                                >
-                                    <Add />
-                                </IconButton>
-                            </Tooltip>
-                        )}
+                        <h1>Pedidos de Reserva</h1>
                     </Box>
 
                     <LoadingCard
                         isLoading={isLoading}
                         hasError={hasError}
-                        onPress={getPets}
+                        onPress={getReserves}
                         rows={8}
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && pets && pets.length === 0 && (
+                        {!isLoading && !hasError && reserves && reserves.length === 0 && (
                             <p>Nenhum item encontrado</p>
                         )}
 
-                        {!isLoading && !hasError && pets && pets.length > 0 && pets.map((item, index) => (
+                        {!isLoading && !hasError && reserves && reserves.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardMedia
-                                        image={item.imagem}
-                                        title={item.nome}
+                                        image={item.hotel.imagem}
+                                        title={item.hotel.nome}
                                         className="image-item"
                                     />
 
@@ -163,7 +154,7 @@ const Adoption = () => {
                                             variant="h5"
                                             component="h2"
                                         >
-                                            {item.nome}
+                                            {item.hotel.nome}
                                         </Typography>
 
                                         <Typography
@@ -171,7 +162,7 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Espécie: {item.especie}
+                                            Cliente: {item.usuario.nome}
                                         </Typography>
 
                                         <Typography
@@ -179,7 +170,18 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Sexo: {item.sexo}
+                                            Celular: {item.usuario.celular}
+                                        </Typography>
+
+                                        <Typography
+                                            variant="body2"
+                                            color="textSecondary"
+                                            component="p"
+                                            style={{
+                                                marginTop: 16
+                                            }}
+                                        >
+                                            Entrada: {format(parseISO(item.dataEntrada), 'dd/MM/yyy')}
                                         </Typography>
 
                                         <Typography
@@ -187,42 +189,24 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Idade: {item.idade}
+                                            Saída: {format(parseISO(item.dataEntrada), 'dd/MM/yyy')}
                                         </Typography>
 
                                         <Typography
                                             variant="body2"
                                             color="textSecondary"
                                             component="p"
+                                            style={{
+                                                marginTop: 16
+                                            }}
                                         >
-                                            Porte: {item.porte}
+                                            Observação: {item.observacao}
                                         </Typography>
                                     </CardContent>
 
-                                    <CardActions>
-                                        <Button
-                                            aria-label="Ver detalhes do pet"
-                                            size="small"
-                                            color="primary"
-                                            component={Link}
-                                            to={`/adoption/pet/${item.id}`}
-                                        >
-                                            Ver detalhes
-                                        </Button>
-
-                                        {user.role === 'ADMIN' && (
+                                    {user.role === 'ADMIN' && (
+                                        <CardActions>
                                             <Box className="container-button">
-                                                <Tooltip title="Editar" arrow>
-                                                    <IconButton
-                                                        aria-label="Editar"
-                                                        size="small"
-                                                        component={Link}
-                                                        to={`/adoption/edit/pet/${item.id}`}
-                                                    >
-                                                        <Create />
-                                                    </IconButton>
-                                                </Tooltip>
-
                                                 <Tooltip title="Excluir" arrow>
                                                     <IconButton
                                                         aria-label="Excluir"
@@ -233,16 +217,16 @@ const Adoption = () => {
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
-                                        )}
-                                    </CardActions>
+                                        </CardActions>
+                                    )}
                                 </Card>
                             </ItemCard>
                         ))}
                     </Box>
-                </ContentAdoption>
+                </ContentViewReserves>
             </Box>
-        </ContainerAdoption>
+        </ContainerViewReserves>
     )
 };
 
-export default Adoption;
+export default ViewReserves;
