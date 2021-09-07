@@ -45,7 +45,7 @@ export const MenuContainer = withTheme(styled.div`
         width: 100%;
 
         a {
-            padding: 12px;
+            padding: 6px 12px;
             color: ${props => props.theme.palette.description.secondary.main};
             transition: .2s ease all;
             display: flex;

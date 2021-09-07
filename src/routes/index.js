@@ -153,6 +153,13 @@ const Routes = () => {
                 />
 
                 <CustomRoute
+                    path="/tour-requests"
+                    component={Modules.ViewTourRequests}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
                     path="/reserves"
                     component={Modules.ViewReserves}
                     exact

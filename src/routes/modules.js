@@ -14,6 +14,7 @@ import Employees from '../pages/Employees';
 import CreateEditEmployee from '../pages/CreateEditEmployee';
 import Tours from '../pages/Tours';
 import CreateEditTour from '../pages/CreateEditTour';
+import ViewTourRequests from '../pages/ViewTourRequests';
 import ViewReserves from '../pages/ViewReserves';
 
 export {
@@ -33,5 +34,6 @@ export {
     CreateEditEmployee,
     Tours,
     CreateEditTour,
+    ViewTourRequests,
     ViewReserves,
 };
