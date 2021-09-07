@@ -17,6 +17,7 @@ import {
     Apartment,
     CalendarToday,
     DirectionsWalk,
+    Bookmark,
     Call,
     ExitToApp,
     Menu as MenuIcon,
@@ -130,15 +131,21 @@ const Menu = () => {
                             Pedidos de reserva
                         </NavLink>
 
-                        {user.role === 'ADMIN' && (
-                            <NavLink
-                                to="/tours"
-                                activeClassName="active"
-                            >
-                                <DirectionsWalk />
-                                Passeios
-                            </NavLink>
-                        )}
+                        <NavLink
+                            to="/tours"
+                            activeClassName="active"
+                        >
+                            <DirectionsWalk />
+                            Passeios
+                        </NavLink>
+
+                        <NavLink
+                            to="/tour-requests"
+                            activeClassName="active"
+                        >
+                            <Bookmark />
+                            Pedidos de passeio
+                        </NavLink>
 
                         <NavLink
                             to={

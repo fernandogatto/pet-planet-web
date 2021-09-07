@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { withTheme } from '@material-ui/core/styles';
 
-export const ContainerEmployee = withTheme(styled.div`
+export const ContainerViewTourRequests = withTheme(styled.div`
     width: 100%;
     height: 100vh;
     overflow: hidden;
@@ -20,7 +20,7 @@ export const ContainerEmployee = withTheme(styled.div`
     }
 `);
 
-export const ContentEmployee = withTheme(styled.div`
+export const ContentViewTourRequests = withTheme(styled.div`
     max-width: 1200px;
     width: 100%;
     margin: auto;
