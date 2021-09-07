@@ -90,8 +90,15 @@ const Routes = () => {
                 />
 
                 <CustomRoute
-                    path="/rescue"
+                    path={"/rescue"}
                     component={Modules.Rescue}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path={"/rescue/create"}
+                    component={Modules.CreateRescue}
                     exact
                     isPrivate
                 />

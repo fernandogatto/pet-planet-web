@@ -95,11 +95,11 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/request"
+                            to="/adoption-requests"
                             activeClassName="active"
                         >
                             <Attachment />
-                            Meus pedidos
+                            Pedidos de adoção
                         </NavLink>
 
                         <NavLink
@@ -119,11 +119,15 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/rescue"
+                            to={
+                                user.pefil === 'Cliente'
+                                    ? '/rescue/create'
+                                    : '/rescue'
+                            }
                             activeClassName="active"
                         >
                             <Call />
-                            Resgate
+                            Pedido de resgate
                         </NavLink>
                     </nav>
             )}

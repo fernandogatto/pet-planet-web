@@ -25,71 +25,32 @@ export const ContentRescue = withTheme(styled.div`
     width: 100%;
     margin: auto;
 
-    .container-form {
-        align-items: center;
+    p {
+        color: ${props => props.theme.palette.description.secondary.light};
+    }
 
-        .container-section {
-            margin-bottom: 16px;
+    .container-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        column-gap: 10px;
+        row-gap: 15px;
+    }
+`);
 
-            h2 {
-                margin-bottom: 16px;
-            }
+export const ItemCard = withTheme(styled.div`
+    .card-container {
+        padding: 0;
+
+        a:hover {
+            color: ${props => props.theme.palette.text.secondary};
         }
 
-        .container-flex {
-            display: flex;
-            margin-bottom: 16px;
-
-            @media(max-width: 768px) {
-                flex-direction: column;
-            }
-
-            .item-flex {
-                flex: 1;
-
-                &:nth-child(1) {
-                    margin-right: 8px;
-
-                    @media(max-width: 768px) {
-                        margin-right: 0;
-                        margin-bottom: 16px;
-                    }
-                }
-
-                &:nth-child(2) {
-                    margin-left: 8px;
-
-                    @media(max-width: 768px) {
-                        margin-left: 0;
-                    }
-                }
-            }
+        .container-button {
+            margin-left: auto;
         }
+    }
 
-        .input {
-            width: 100%;
-
-            & + .input {
-                margin-top: 16px;
-            }
-        }
-
-        .grid-button {
-            display: flex;
-            justify-content: flex-end;
-            align-items: center;
-
-            .wrapper {
-                position: relative;
-
-                .circular-progress {
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    margin-top: -12px;
-                    margin-left: -12px;
-                }
-            }
-        }
+    .image-item {
+        height: 200px;
     }
 `);

@@ -42,6 +42,20 @@ const RescueOperations = {
             throw error;
         }
     },
+
+    deleteRescueById: (id) => async () => {
+        try {
+            const response = await RescueService.deleteRescueById(id);
+
+            Toast.showSuccess('Resgate excluído com sucesso');
+
+            return response.data;
+        } catch (error) {
+            Toast.showError(getErrorMessage(error));
+
+            throw error;
+        }
+    },
 }
 
 export default RescueOperations;

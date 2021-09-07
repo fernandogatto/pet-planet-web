@@ -8,6 +8,7 @@ import Accommodation from '../pages/Accommodation';
 import CreateEditHotel from '../pages/CreateEditHotel';
 import ViewHotel from '../pages/ViewHotel';
 import Rescue from '../pages/Rescue';
+import CreateRescue from '../pages/CreateRescue';
 import ViewAdoptionRequests from '../pages/ViewAdoptionRequests';
 
 export {
@@ -21,5 +22,6 @@ export {
     CreateEditHotel,
     ViewHotel,
     Rescue,
+    CreateRescue,
     ViewAdoptionRequests,
 };
