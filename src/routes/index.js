@@ -11,7 +11,7 @@ import * as Modules from './modules';
 
 const Routes = () => {
     return (
-        <Router basename={process.env.PUBLIC_URL}>
+        <Router>
             <Switch>
                 <CustomRoute
                     path="/"
