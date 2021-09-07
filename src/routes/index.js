@@ -151,6 +151,13 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/reserves"
+                    component={Modules.ViewReserves}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )

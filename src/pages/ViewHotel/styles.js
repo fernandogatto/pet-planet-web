@@ -66,6 +66,7 @@ export const ContentViewHotel = withTheme(styled.div`
         .grid-button {
             .wrapper {
                 position: relative;
+                width: fit-content;
 
                 .circular-progress {
                     position: absolute;

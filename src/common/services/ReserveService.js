@@ -5,12 +5,20 @@ class ReserveService {
         return Api.get(`/reservas`);
     }
 
-    getReserve(id) {
-        return Api.get(`/reservas/${id}`);
+    getReserveByUserId(user_id) {
+        return Api.get(`/reservas/usuario/${user_id}`);
     }
 
     postReserve(data) {
-        return Api.get(`/reservas`, data);
+        return Api.post(`/reservas`, data);
+    }
+
+    updateReserveById(id, data) {
+        return Api.put(`/reservas/${id}`, data);
+    }
+
+    deleteReserveById(id) {
+        return Api.delete(`/reservas/${id}`);
     }
 }
 

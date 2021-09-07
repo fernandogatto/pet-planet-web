@@ -25,6 +25,8 @@ import Menu from '../../components/Menu';
 
 import PetOperations from '../../common/rules/Pet/PetOperations';
 
+import UserOperations from '../../common/rules/User/UserOperations';
+
 import AdoptionRequestOperations from '../../common/rules/AdoptionRequest/AdoptionRequestOperations';
 
 const ViewPet = ({ match }) => {
@@ -42,10 +44,20 @@ const ViewPet = ({ match }) => {
 
     const [hasError, setHasError] = useState(false);
 
+    const [client, setClient] = useState({});
+
+    const [isLoadingClient, setIsLoadingClient] = useState(false);
+
+    const [hasErrorClient, setHasErrorClient] = useState(false);
+
     const [isSubmiting, setIsSubmiting] = useState(false);
 
     useEffect(() => {
         getPet();
+
+        if (user.role === 'CLIENTE') {
+            getUserClient();
+        }
     }, []);
 
     const getPet = async () => {
@@ -68,11 +80,31 @@ const ViewPet = ({ match }) => {
         }
     }
 
+    const getUserClient = async () => {
+        try {
+            setIsLoadingClient(true);
+
+            setHasErrorClient(false);
+
+            const response = await dispatch(UserOperations.getUser(user.uid));
+
+            setIsLoadingClient(false);
+
+            setClient(response);
+        } catch (err) {
+            console.log('getUserClient', err);
+
+            setIsLoadingClient(false);
+
+            setHasErrorClient(true);
+        }
+    }
+
     const handleSubmit = async () => {
         try {
             const data = {
-                pet_id: id,
-                client_id: user.id,
+                pet,
+                usuario: client,
             };
 
             setIsSubmiting(true);
@@ -137,28 +169,30 @@ const ViewPet = ({ match }) => {
                                     <p>{pet.descricao}</p>
                                 </Box>
 
-                                <Box mt={2} className="grid-button">
-                                    <Box className="wrapper">
-                                        {isSubmiting && (
-                                            <CircularProgress
-                                                className="circular-progress"
-                                                style={{ width: 24, height: 24 }}
-                                            />
-                                        )}
+                                {user.role === 'CLIENTE' && (
+                                    <Box mt={2} className="grid-button">
+                                        <Box className="wrapper">
+                                            {isSubmiting && (
+                                                <CircularProgress
+                                                    className="circular-progress"
+                                                    style={{ width: 24, height: 24 }}
+                                                />
+                                            )}
 
-                                        <Button
-                                            aria-label="Pedido de adoção"
-                                            type="submit"
-                                            variant="contained"
-                                            color="primary"
-                                            size="large"
-                                            disabled={isSubmiting}
-                                            onClick={handleSubmit}
-                                        >
-                                            Adotar
-                                        </Button>
+                                            <Button
+                                                aria-label="Pedido de adoção"
+                                                type="submit"
+                                                variant="contained"
+                                                color="primary"
+                                                size="large"
+                                                disabled={isSubmiting}
+                                                onClick={handleSubmit}
+                                            >
+                                                Adotar
+                                            </Button>
+                                        </Box>
                                     </Box>
-                                </Box>
+                                )}
                             </Box>
                         </Box>
                     )}

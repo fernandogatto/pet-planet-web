@@ -14,6 +14,7 @@ import Employees from '../pages/Employees';
 import CreateEditEmployee from '../pages/CreateEditEmployee';
 import Tours from '../pages/Tours';
 import CreateEditTour from '../pages/CreateEditTour';
+import ViewReserves from '../pages/ViewReserves';
 
 export {
     SignIn,
@@ -32,4 +33,5 @@ export {
     CreateEditEmployee,
     Tours,
     CreateEditTour,
+    ViewReserves,
 };

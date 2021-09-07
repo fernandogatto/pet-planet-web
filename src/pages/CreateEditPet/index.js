@@ -52,7 +52,7 @@ const CreateEditPet = ({ match }) => {
         nome: '',
         especie: '',
         raca: '',
-        idade: '',
+        idade: 0,
         descricao: '',
         imagem: '',
     });
@@ -147,7 +147,7 @@ const CreateEditPet = ({ match }) => {
                 nome: nome === '' ? true : false,
                 especie: especie === '' ? true : false,
                 raca: raca === '' ? true : false,
-                idade: idade === '' ? true : false,
+                idade: idade < 0 ? true : false,
                 descricao: descricao === '' ? true : false,
                 imagem: imagem === '' ? true : false,
                 porte: porte === '' ? true : false,
@@ -158,7 +158,7 @@ const CreateEditPet = ({ match }) => {
                 nome !== '' &&
                 especie !== '' &&
                 raca !== '' &&
-                idade !== '' &&
+                idade > 0 &&
                 descricao !== '' &&
                 imagem !== '' &&
                 porte !== '' &&
@@ -177,9 +177,9 @@ const CreateEditPet = ({ match }) => {
 
                 setIsSubmiting(true);
 
-                await isUpdate
-                    ? dispatch(PetOperations.updatePetById(id, data))
-                    : dispatch(PetOperations.createPet(data));
+                isUpdate
+                    ? await dispatch(PetOperations.updatePetById(id, data))
+                    : await dispatch(PetOperations.createPet(data));
 
                 setIsSubmiting(false);
 
@@ -272,10 +272,12 @@ const CreateEditPet = ({ match }) => {
                                             required
                                             error={inputError.idade}
                                             variant="outlined"
-                                            type="text"
+                                            type="number"
                                             name="idade"
                                             label="Idade"
                                             fullWidth
+                                            inputProps={{ min: 0 }}
+                                            min={0}
                                             value={inputTextData.idade}
                                             onChange={handleInputTextChange}
                                             disabled={isSubmiting}

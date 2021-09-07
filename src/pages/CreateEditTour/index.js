@@ -68,12 +68,12 @@ const CreateEditTour = ({ match }) => {
     });
 
     const [inputSelectData, setInputSelectData] = useState({
-        funcionario_id: '',
+        funcionario: '',
     });
 
     const [inputError, setInputError] = useState({
         valor: false,
-        funcionario_id: false,
+        funcionario: false,
     });
 
     useEffect(() => {
@@ -123,7 +123,7 @@ const CreateEditTour = ({ match }) => {
             });
 
             setInputSelectData({
-                funcionario_id: response.funcionario_id,
+                funcionario: response.funcionario.id,
             });
         } catch (err) {
             console.log('getTour', err);
@@ -153,28 +153,28 @@ const CreateEditTour = ({ match }) => {
             } = inputTextData;
 
             const {
-                funcionario_id,
+                funcionario,
             } = inputSelectData;
 
             setInputError({
                 valor: valor === '' ? true : false,
-                funcionario_id: funcionario_id === '' ? true : false,
+                funcionario: funcionario === '' ? true : false,
             });
 
             if (
                 valor !== '' &&
-                funcionario_id !== ''
+                funcionario !== ''
             ) {
                 const data = {
                     valor,
-                    funcionario_id,
+                    funcionario: employees.find(item => item.id === funcionario),
                 };
 
                 setIsSubmiting(true);
 
-                await isUpdate
-                    ? dispatch(TourOperations.updateTourById(id, data))
-                    : dispatch(TourOperations.createTour(data));
+                isUpdate
+                    ? await dispatch(TourOperations.updateTourById(id, data))
+                    : await dispatch(TourOperations.createTour(data));
 
                 setIsSubmiting(false);
 
@@ -258,20 +258,20 @@ const CreateEditTour = ({ match }) => {
                                             employees && (
                                                 <FormControl
                                                     required
-                                                    error={inputError.funcionario_id}
+                                                    error={inputError.funcionario}
                                                     variant="outlined"
                                                     fullWidth
                                                     className="input"
                                                 >
-                                                    <InputLabel htmlFor="funcionario_id">
+                                                    <InputLabel htmlFor="funcionario">
                                                         Funcionário
                                                     </InputLabel>
 
                                                     <Select
-                                                        value={inputSelectData.funcionario_id}
+                                                        value={inputSelectData.funcionario}
                                                         onChange={handleSelectChange}
                                                         label="Funcionário"
-                                                        name="funcionario_id"
+                                                        name="funcionario"
                                                         disabled={isSubmiting}
                                                     >
                                                         {employees.length > 0 &&
@@ -285,7 +285,7 @@ const CreateEditTour = ({ match }) => {
                                                         ))}
                                                     </Select>
 
-                                                    {inputError.funcionario_id && (
+                                                    {inputError.funcionario && (
                                                         <FormHelperText>
                                                             Campo obrigatório
                                                         </FormHelperText>

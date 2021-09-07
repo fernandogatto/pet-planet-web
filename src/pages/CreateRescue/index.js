@@ -24,8 +24,6 @@ import {
 import DateFnsUtils from '@date-io/date-fns';
 import DateLocale from 'date-fns/locale/pt-BR';
 
-import { format } from 'date-fns';
-
 import {
     ContainerRescue,
     ContentRescue,
@@ -52,7 +50,7 @@ const CreateRescue = () => {
     });
 
     const [inputDateData, setInputDateData] = useState({
-        data_horario: new Date(),
+        dataHorario: new Date(),
     });
 
     const [inputSelectData, setInputSelectData] = useState({
@@ -69,6 +67,7 @@ const CreateRescue = () => {
         logradouro: false,
         numero: false,
         bairro: false,
+        observacao: false,
     });
 
     const [isSubmiting, setIsSubmiting] = useState(false);
@@ -100,7 +99,7 @@ const CreateRescue = () => {
                 bairro,
             } = inputTextData;
 
-            const { data_horario } = inputDateData;
+            const { dataHorario } = inputDateData;
 
             const {
                 porte,
@@ -118,6 +117,7 @@ const CreateRescue = () => {
                 logradouro: logradouro === '' ? true : false,
                 numero: (numero === 0 || numero < 0) ? true : false,
                 bairro: bairro === '' ? true : false,
+                observacao: observacao === '' ? true : false,
             });
 
             if (
@@ -129,18 +129,19 @@ const CreateRescue = () => {
                 municipio !== '' &&
                 logradouro !== '' &&
                 numero > 0 &&
-                bairro !== ''
+                bairro !== '' &&
+                observacao !== ''
             ) {
                 const data = {
-                    celular: celular.replace(/[^0-9]+/g, ''),
-                    data_horario: format(data_horario, 'yyyy-MM-dd HH:mm'),
+                    celular,
+                    dataHorario,
                     especie,
                     porte,
                     observacao,
                     estado,
                     municipio,
                     logradouro,
-                    numero,
+                    numero: Number(numero),
                     bairro,
                 };
 
@@ -180,11 +181,11 @@ const CreateRescue = () => {
                                         ampm={false}
                                         inputVariant="outlined"
                                         orientation="portrait"
-                                        name="data_horario"
+                                        name="dataHorario"
                                         label="Data"
                                         format="dd/MM/yyyy 'às' HH:mm"
-                                        value={inputDateData.data_horario}
-                                        onChange={(value) => handleDateChange(value, 'data_horario')}
+                                        value={inputDateData.dataHorario}
+                                        onChange={(value) => handleDateChange(value, 'dataHorario')}
                                         disabled={isSubmiting}
                                         className="input"
                                     />
@@ -274,6 +275,8 @@ const CreateRescue = () => {
                                 </FormControl>
 
                                 <TextField
+                                    required
+                                    error={inputError.observacao}
                                     multiline
                                     minRows={5}
                                     maxRows={5}
@@ -286,6 +289,7 @@ const CreateRescue = () => {
                                     onChange={handleInputTextChange}
                                     disabled={isSubmiting}
                                     className="input"
+                                    helperText={inputError.observacao && 'Campo obrigatório'}
                                 />
                             </Box>
 

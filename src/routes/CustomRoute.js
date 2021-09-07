@@ -8,7 +8,7 @@ import {
 import { useAuth } from '../common/contexts/Auth';
 
 const CustomRoute = ({ isPrivate, component: Component, ...rest }) => {
-    const { user } = useAuth();
+    const { accessToken } = useAuth();
 
     let _isPrivate = isPrivate || false;
 
@@ -16,9 +16,7 @@ const CustomRoute = ({ isPrivate, component: Component, ...rest }) => {
         <Route
             {...rest}
             render={(props) => {
-                return _isPrivate === !!(
-                    user && JSON.stringify(user) !== JSON.stringify({})
-                ) ? (
+                return _isPrivate === !!accessToken ? (
                     <Component {...props} />
                 ) : (
                     <Redirect

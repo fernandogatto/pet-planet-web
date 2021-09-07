@@ -1,5 +1,5 @@
 const URLS = {
-    baseUrl: `http://localhost:3333`,
+    baseUrl: `https://petplanet-api.herokuapp.com`,
 }
 
 export default URLS;

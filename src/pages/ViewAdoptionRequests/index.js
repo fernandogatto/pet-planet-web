@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { Link } from 'react-router-dom';
-
 import { useDispatch } from 'react-redux';
 
 import {
@@ -10,21 +8,18 @@ import {
     CardActions,
     CardContent,
     CardMedia,
-    Button,
-    Typography,
     Tooltip,
     IconButton,
+    Typography,
 } from '@material-ui/core';
 
 import {
-    Add,
-    Create,
     Delete,
 } from '@material-ui/icons';
 
 import {
-    ContainerAdoption,
-    ContentAdoption,
+    ContainerViewAdoptionRequests,
+    ContentViewAdoptionRequests,
     ItemCard,
 } from './styles';
 
@@ -36,14 +31,14 @@ import LoadingCard from '../../components/Loadings/LoadingCard';
 
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
-import PetOperations from '../../common/rules/Pet/PetOperations';
+import AdoptionRequestOperations from '../../common/rules/AdoptionRequest/AdoptionRequestOperations';
 
-const Adoption = () => {
+const ViewAdoptionRequests = () => {
     const dispatch = useDispatch();
 
     const { user } = useAuth();
 
-    const [pets, setPets] = useState([]);
+    const [requests, setRequests] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -54,22 +49,28 @@ const Adoption = () => {
     const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
-        getPets();
+        getAdoptionRequests();
     }, []);
 
-    const getPets = async () => {
+    const getAdoptionRequests = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(PetOperations.getPets());
+            let response = [];
+
+            if (user.role === 'CLIENTE') {
+                response = await dispatch(AdoptionRequestOperations.getAdoptionRequestByUserId(user.uid));
+            } else {
+                response = await dispatch(AdoptionRequestOperations.getAdoptionRequests());
+            }
 
             setIsLoading(false);
 
-            setPets(response);
+            setRequests(response);
         } catch (err) {
-            console.log('getPets', err);
+            console.log('getAdoptionRequests', err);
 
             setIsLoading(false);
 
@@ -87,19 +88,19 @@ const Adoption = () => {
     }
 
     const handleDelete = async (item) => {
-        let _items = [...pets];
+        let _items = [...requests];
 
         _items.splice(item.index, 1);
 
-        setPets(_items);
+        setRequests(_items);
 
-        await dispatch(PetOperations.deletePetById(item.id));
+        await dispatch(AdoptionRequestOperations.deleteAdoptionRequestById(item.id));
 
         setDeletedItem({});
     }
 
     return (
-        <ContainerAdoption>
+        <ContainerViewAdoptionRequests>
             <Menu />
 
             <ConfirmDialog
@@ -114,46 +115,34 @@ const Adoption = () => {
 
                     setOpenConfirmDialog(false);
                 }}
-                title="Excluir Pet"
+                title="Excluir Pedido de Adoção"
                 message="Tem certeza que deseja excluir este item?"
             />
 
             <Box className="container-page">
-                <ContentAdoption>
+                <ContentViewAdoptionRequests>
                     <Box className="container-header-page">
-                        <h1>Adoção</h1>
-
-                        {user.role === 'ADMIN' && (
-                            <Tooltip title="Novo pet" arrow>
-                                <IconButton
-                                    aria-label="Novo pet"
-                                    component={Link}
-                                    to="/adoption/create"
-                                >
-                                    <Add />
-                                </IconButton>
-                            </Tooltip>
-                        )}
+                        <h1>Pedidos de Adoção</h1>
                     </Box>
 
                     <LoadingCard
                         isLoading={isLoading}
                         hasError={hasError}
-                        onPress={getPets}
+                        onPress={getAdoptionRequests}
                         rows={8}
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && pets && pets.length === 0 && (
+                        {!isLoading && !hasError && requests && requests.length === 0 && (
                             <p>Nenhum item encontrado</p>
                         )}
 
-                        {!isLoading && !hasError && pets && pets.length > 0 && pets.map((item, index) => (
+                        {!isLoading && !hasError && requests && requests.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardMedia
-                                        image={item.imagem}
-                                        title={item.nome}
+                                        image={item.pet.imagem}
+                                        title={item.pet.nome}
                                         className="image-item"
                                     />
 
@@ -163,7 +152,7 @@ const Adoption = () => {
                                             variant="h5"
                                             component="h2"
                                         >
-                                            {item.nome}
+                                            {item.pet.nome}
                                         </Typography>
 
                                         <Typography
@@ -171,7 +160,7 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Espécie: {item.especie}
+                                            Cliente: {item.usuario.nome}
                                         </Typography>
 
                                         <Typography
@@ -179,50 +168,13 @@ const Adoption = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            Sexo: {item.sexo}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            Idade: {item.idade}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            Porte: {item.porte}
+                                            Celular: {item.usuario.celular}
                                         </Typography>
                                     </CardContent>
 
-                                    <CardActions>
-                                        <Button
-                                            aria-label="Ver detalhes do pet"
-                                            size="small"
-                                            color="primary"
-                                            component={Link}
-                                            to={`/adoption/pet/${item.id}`}
-                                        >
-                                            Ver detalhes
-                                        </Button>
-
-                                        {user.role === 'ADMIN' && (
+                                    {user.role === 'ADMIN' && (
+                                        <CardActions>
                                             <Box className="container-button">
-                                                <Tooltip title="Editar" arrow>
-                                                    <IconButton
-                                                        aria-label="Editar"
-                                                        size="small"
-                                                        component={Link}
-                                                        to={`/adoption/edit/pet/${item.id}`}
-                                                    >
-                                                        <Create />
-                                                    </IconButton>
-                                                </Tooltip>
-
                                                 <Tooltip title="Excluir" arrow>
                                                     <IconButton
                                                         aria-label="Excluir"
@@ -233,16 +185,16 @@ const Adoption = () => {
                                                     </IconButton>
                                                 </Tooltip>
                                             </Box>
-                                        )}
-                                    </CardActions>
+                                        </CardActions>
+                                    )}
                                 </Card>
                             </ItemCard>
                         ))}
                     </Box>
-                </ContentAdoption>
+                </ContentViewAdoptionRequests>
             </Box>
-        </ContainerAdoption>
+        </ContainerViewAdoptionRequests>
     )
 };
 
-export default Adoption;
+export default ViewAdoptionRequests;
