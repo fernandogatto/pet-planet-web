@@ -134,7 +134,7 @@ const ViewAdoptionRequests = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && requests && requests.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && requests && requests.map((item, index) => (

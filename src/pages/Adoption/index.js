@@ -145,7 +145,7 @@ const Adoption = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && pets && pets.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && pets && pets.length > 0 && pets.map((item, index) => (

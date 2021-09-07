@@ -15,7 +15,15 @@ import { ContainerSidebarBox } from './styles';
 
 import LoadingSidebar from '../Loadings/LoadingSidebar';
 
-const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) => {
+const SidebarBox = ({
+    title,
+    linkDomain,
+    linkSeeMore,
+    array,
+    isLoading,
+    hasError,
+    onPress,
+}) => {
     const [anchorEl, setAnchorEl] = useState(null);
 
     const open = Boolean(anchorEl);
@@ -50,7 +58,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                     <Box className="item-box" key={index}>
                         <Box style={{ display: 'flex' }}>
                             <img
-                                src={item.url}
+                                src={item.imagem}
                                 alt={item.nome}
                                 className="avatar"
                             />
@@ -58,7 +66,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                             <Box>
                                 <h3>{item.nome}</h3>
 
-                                <p>{item.estabelecimento}</p>
+                                <p>{item.especie}</p>
                             </Box>
                         </Box>
 
@@ -67,6 +75,7 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                                 aria-label="Ver mais"
                                 aria-controls="long-menu"
                                 aria-haspopup="true"
+                                size="small"
                                 onClick={handleClick}
                             >
                                 <MoreVert />
@@ -93,6 +102,15 @@ const SidebarBox = ({ title, linkDomain, array, isLoading, hasError, onPress }) 
                         </Menu>
                     </Box>
                 ))}
+
+                {!isLoading && !hasError && array && array.length > 0 && (
+                    <Link
+                        to={linkSeeMore}
+                        className="link-box"
+                    >
+                        Ver mais
+                    </Link>
+                )}
             </Box>
         </ContainerSidebarBox>
     )

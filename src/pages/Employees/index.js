@@ -137,7 +137,7 @@ const Employees = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && employees && employees.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && employees && employees.length > 0 && employees.map((item, index) => (

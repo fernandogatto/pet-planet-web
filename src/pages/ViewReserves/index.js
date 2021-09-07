@@ -136,7 +136,7 @@ const ViewReserves = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && reserves && reserves.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && reserves && reserves.map((item, index) => (

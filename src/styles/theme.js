@@ -21,6 +21,9 @@ const theme = createTheme({
             tertiary: {
                 main: '#E8E8E8',
             },
+            quaternary: {
+                main: '#FFFFFF',
+            },
         },
         description: {
             primary: {

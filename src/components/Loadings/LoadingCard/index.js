@@ -15,7 +15,7 @@ import { Skeleton } from '@material-ui/lab';
 
 import { ContainerCard } from './styles';
 
-const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
+const LoadingCard = ({ isLoading, hasError, onPress, rows, gridTemplateColumns }) => {
     return (
         <>
             {hasError && (
@@ -32,7 +32,9 @@ const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
                 </Box>
             )}
 
-            <ContainerCard>
+            <ContainerCard
+                gridTemplateColumns={gridTemplateColumns || '1fr 1fr 1fr 1fr'}
+            >
                 {isLoading && (
                     [...Array(rows)].map((element, index) => (
                         <Card

@@ -28,60 +28,44 @@ export const ContentDashboard = withTheme(styled.div`
     p {
         color: ${props => props.theme.palette.description.secondary.light};
     }
-`);
 
-export const ContainerPhysicalPersonCard = withTheme(styled.div`
-    padding: 25px 20px;
-    width: 100%;
-    background-color: ${props => props.theme.palette.background.primary.main};
-    border-radius: 12px;
-
-    & + div {
-        margin-top: 16px;
-    }
-
-    p {
-        line-height: 21px;
-    }
-
-    .item-container-name {
+    .container-title {
         margin-bottom: 16px;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: space-between;
+    }
+
+    .container-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        column-gap: 10px;
+        row-gap: 15px;
 
         @media(max-width: 768px) {
-            flex-direction: column;
-            align-items: flex-start;
-            justify-content: flex-start;
+            grid-template-columns: 1fr 1fr;
         }
 
-        h2 {
-            margin-right: 16px;
+        @media(max-width: 767px) {
+            grid-template-columns: 1fr;
         }
+    }
+`);
 
-        svg {
-            font-size: 18px;
-        }
+export const ItemCard = withTheme(styled.div`
+    .card-container {
+        padding: 0;
 
         a:hover {
             color: ${props => props.theme.palette.text.secondary};
         }
-    }
 
-    .item-flex {
-        display: flex;
-        align-items: center;
-    }
-
-    .item-status {
-        background-color: ${props => props.theme.palette.description.secondary.light};
-        padding: 6px 12px;
-        border-radius: 24px;
-        width: fit-content;
-
-        p {
-            color: ${props => props.theme.palette.description.primary.main};
+        .container-button {
+            margin-left: auto;
         }
+    }
+
+    .image-item {
+        height: 200px;
     }
 `);

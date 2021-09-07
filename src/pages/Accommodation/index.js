@@ -145,7 +145,7 @@ const Accommodation = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && accommodations && accommodations.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && accommodations && accommodations.length > 0 && accommodations.map((item, index) => (
