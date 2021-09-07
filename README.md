@@ -71,12 +71,33 @@ Run the following command in order in terminal:
 yarn start
 ```
 
+## 💻 Project <a name="project"/>
+
+The project is hosted [here](https://sapucaialuann.github.io/pet-planet-web/)
+
 ```bash
-# Run API
-yarn json-server ./src/common/helpers/server.json --port 3333
+# Admin user
+User: admin@petplanet.ic.uff.br
+Password: 12345678
 ```
 
-## 💻 Project <a name="project"/>
+Sign in:
+
+<img
+    alt="Sign in"
+    title="Sign in"
+    src=".github/sign-in.png"
+    width="800"
+/>
+
+Dashboard:
+
+<img
+    alt="Dashborad"
+    title="Dashborad"
+    src=".github/dashboard.png"
+    width="800"
+/>
 
 ## 👍 Contribute <a name="contribute"/>
 
