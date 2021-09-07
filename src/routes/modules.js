@@ -12,6 +12,8 @@ import CreateRescue from '../pages/CreateRescue';
 import ViewAdoptionRequests from '../pages/ViewAdoptionRequests';
 import Employees from '../pages/Employees';
 import CreateEditEmployee from '../pages/CreateEditEmployee';
+import Tours from '../pages/Tours';
+import CreateEditTour from '../pages/CreateEditTour';
 
 export {
     SignIn,
@@ -28,4 +30,6 @@ export {
     ViewAdoptionRequests,
     Employees,
     CreateEditEmployee,
+    Tours,
+    CreateEditTour,
 };

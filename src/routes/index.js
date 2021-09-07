@@ -130,6 +130,27 @@ const Routes = () => {
                     exact
                     isPrivate
                 />
+
+                <CustomRoute
+                    path="/tours"
+                    component={Modules.Tours}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/tours/create"
+                    component={Modules.CreateEditTour}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/tours/edit/:id"
+                    component={Modules.CreateEditTour}
+                    exact
+                    isPrivate
+                />
             </Switch>
         </Router>
     )
