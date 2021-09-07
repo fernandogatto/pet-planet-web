@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { parseISO, format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
@@ -15,12 +15,14 @@ import {
 } from '@material-ui/core';
 
 import {
+    Add,
+    Create,
     Delete,
 } from '@material-ui/icons';
 
 import {
-    ContainerRescue,
-    ContentRescue,
+    ContainerEmployee,
+    ContentEmployee,
     ItemCard,
 } from './styles';
 
@@ -30,12 +32,12 @@ import LoadingCard from '../../components/Loadings/LoadingCard';
 
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
-import RescueOperations from '../../common/rules/Rescue/RescueOperations';
+import EmployeeOperations from '../../common/rules/Employee/EmployeeOperations';
 
-const Rescue = () => {
+const Employees = () => {
     const dispatch = useDispatch();
 
-    const [rescues, setRescues] = useState([]);
+    const [employees, setEmployees] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -46,22 +48,22 @@ const Rescue = () => {
     const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
-        getRescues();
+        getEmployees();
     }, []);
 
-    const getRescues = async () => {
+    const getEmployees = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(RescueOperations.getRescues());
+            const response = await dispatch(EmployeeOperations.getEmployees());
 
             setIsLoading(false);
 
-            setRescues(response);
+            setEmployees(response);
         } catch (err) {
-            console.log('getRescues', err);
+            console.log('getEmployees', err);
 
             setIsLoading(false);
 
@@ -79,19 +81,19 @@ const Rescue = () => {
     }
 
     const handleDelete = async (item) => {
-        let _items = [...rescues];
+        let _items = [...employees];
 
         _items.splice(item.index, 1);
 
-        setRescues(_items);
+        setEmployees(_items);
 
-        await dispatch(RescueOperations.deleteRescueById(item.id));
+        await dispatch(EmployeeOperations.deleteEmployeeById(item.id));
 
         setDeletedItem({});
     }
 
     return (
-        <ContainerRescue>
+        <ContainerEmployee>
             <Menu />
 
             <ConfirmDialog
@@ -106,29 +108,39 @@ const Rescue = () => {
 
                     setOpenConfirmDialog(false);
                 }}
-                title="Excluir Resgate"
+                title="Excluir Funcionário"
                 message="Tem certeza que deseja excluir este item?"
             />
 
             <Box className="container-page">
-                <ContentRescue>
+                <ContentEmployee>
                     <Box className="container-header-page">
-                        <h1>Resgates</h1>
+                        <h1>Funcionários</h1>
+
+                        <Tooltip title="Novo funcionário" arrow>
+                            <IconButton
+                                aria-label="Novo funcionário"
+                                component={Link}
+                                to="/employees/create"
+                            >
+                                <Add />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
 
                     <LoadingCard
                         isLoading={isLoading}
                         hasError={hasError}
-                        onPress={getRescues}
+                        onPress={getEmployees}
                         rows={8}
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && rescues && rescues.length === 0 && (
+                        {!isLoading && !hasError && employees && employees.length === 0 && (
                             <p>Nenhum item encontrado</p>
                         )}
 
-                        {!isLoading && !hasError && rescues && rescues.length > 0 && rescues.map((item, index) => (
+                        {!isLoading && !hasError && employees && employees.length > 0 && employees.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardContent>
@@ -137,7 +149,7 @@ const Rescue = () => {
                                             variant="h5"
                                             component="h2"
                                         >
-                                            {item.especie}
+                                            {item.nome}
                                         </Typography>
 
                                         <Typography
@@ -145,23 +157,7 @@ const Rescue = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {item.logradouro}, {item.numero} - {item.bairro}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {item.municipio}, {item.estado}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            Porte: {item.porte}
+                                           E-mail:  {item.email}
                                         </Typography>
 
                                         <Typography
@@ -171,29 +167,21 @@ const Rescue = () => {
                                         >
                                             Celular: {item.celular.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}
                                         </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {format(parseISO(item.data_horario), "dd/MM/yyyy 'às' HH:mm")}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                            style={{
-                                                marginTop: 16
-                                            }}
-                                        >
-                                            Observação: {item.observacao}
-                                        </Typography>
                                     </CardContent>
 
                                     <CardActions>
                                         <Box className="container-button">
+                                            <Tooltip title="Editar" arrow>
+                                                <IconButton
+                                                    aria-label="Editar"
+                                                    size="small"
+                                                    component={Link}
+                                                    to={`/employees/edit/${item.id}`}
+                                                >
+                                                    <Create />
+                                                </IconButton>
+                                            </Tooltip>
+
                                             <Tooltip title="Excluir" arrow>
                                                 <IconButton
                                                     aria-label="Excluir"
@@ -209,10 +197,10 @@ const Rescue = () => {
                             </ItemCard>
                         ))}
                     </Box>
-                </ContentRescue>
+                </ContentEmployee>
             </Box>
-        </ContainerRescue>
+        </ContainerEmployee>
     )
 };
 
-export default Rescue;
+export default Employees;

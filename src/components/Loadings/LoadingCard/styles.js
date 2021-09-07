@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import { withTheme } from '@material-ui/core/styles';
 
-export const Container = withTheme(styled.div`
+export const ContainerCard = withTheme(styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     column-gap: 10px;

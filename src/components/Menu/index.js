@@ -11,10 +11,12 @@ import {
 
 import {
     Home,
+    Person,
     Pets,
     Attachment,
     Apartment,
     CalendarToday,
+    DirectionsWalk,
     Call,
     ExitToApp,
     Menu as MenuIcon,
@@ -87,6 +89,14 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
+                            to="/employees"
+                            activeClassName="active"
+                        >
+                            <Person />
+                            Funcionários
+                        </NavLink>
+
+                        <NavLink
                             to="/adoption"
                             activeClassName="active"
                         >
@@ -95,11 +105,11 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/request"
+                            to="/adoption-requests"
                             activeClassName="active"
                         >
                             <Attachment />
-                            Meus pedidos
+                            Pedidos de adoção
                         </NavLink>
 
                         <NavLink
@@ -119,11 +129,23 @@ const Menu = () => {
                         </NavLink>
 
                         <NavLink
-                            to="/rescue"
+                            to="/tours"
+                            activeClassName="active"
+                        >
+                            <DirectionsWalk />
+                            Passeios
+                        </NavLink>
+
+                        <NavLink
+                            to={
+                                user.pefil === 'Cliente'
+                                    ? '/rescue/create'
+                                    : '/rescue'
+                            }
                             activeClassName="active"
                         >
                             <Call />
-                            Resgate
+                            Pedido de resgate
                         </NavLink>
                     </nav>
             )}

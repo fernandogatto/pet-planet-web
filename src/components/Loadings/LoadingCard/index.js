@@ -13,15 +13,15 @@ import { Replay } from '@material-ui/icons';
 
 import { Skeleton } from '@material-ui/lab';
 
-import { Container } from './styles';
+import { ContainerCard } from './styles';
 
 const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
     return (
-        <Container>
+        <>
             {hasError && (
                 <Box style={{ textAlign: 'center' }}>
                     <IconButton
-                        onClick={onPress}
+                    onClick={onPress}
                     >
                         <Replay />
                     </IconButton>
@@ -32,45 +32,47 @@ const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
                 </Box>
             )}
 
-            {isLoading && (
-                [...Array(rows)].map((element, index) => (
-                    <Card
-                        key={index}
-                        className="card-container"
-                    >
-                        <Skeleton
-                            animation="wave"
-                            variant="rect"
-                            className="image-item"
-                        />
-
-                        <CardContent>
-                            <>
-                                <Skeleton
-                                    animation="wave"
-                                    variant="text"
-                                    style={{ marginBottom: 8 }}
-                                />
-                                <Skeleton
-                                    animation="wave"
-                                    variant="text"
-                                    width="80%"
-                                />
-                            </>
-                        </CardContent>
-
-                        <CardActions>
+            <ContainerCard>
+                {isLoading && (
+                    [...Array(rows)].map((element, index) => (
+                        <Card
+                            key={index}
+                            className="card-container"
+                        >
                             <Skeleton
                                 animation="wave"
                                 variant="rect"
-                                height={30}
-                                width={100}
+                                className="image-item"
                             />
-                        </CardActions>
-                    </Card>
-                ))
-            )}
-        </Container>
+
+                            <CardContent>
+                                <>
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="text"
+                                        style={{ marginBottom: 8 }}
+                                    />
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="text"
+                                        width="80%"
+                                    />
+                                </>
+                            </CardContent>
+
+                            <CardActions>
+                                <Skeleton
+                                    animation="wave"
+                                    variant="rect"
+                                    height={30}
+                                    width={100}
+                                />
+                            </CardActions>
+                        </Card>
+                    ))
+                )}
+            </ContainerCard>
+        </>
     )
 }
 

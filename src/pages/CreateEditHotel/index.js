@@ -289,12 +289,12 @@ const CreateEditHotel = ({ match }) => {
                                             fullWidth
                                             className="input"
                                         >
-                                            <InputLabel htmlFor="outlined-adornment-password">
+                                            <InputLabel htmlFor="outlined-adornment-price">
                                                 Diária
                                             </InputLabel>
 
                                             <OutlinedInput
-                                                id="outlined-adornment-password"
+                                                id="outlined-adornment-price"
                                                 type="text"
                                                 name="diaria"
                                                 labelWidth={60}

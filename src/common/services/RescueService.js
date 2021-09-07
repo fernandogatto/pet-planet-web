@@ -10,7 +10,11 @@ class RescueService {
     }
 
     postRescue(data) {
-        return Api.get(`/resgates`, data);
+        return Api.post(`/resgates`, data);
+    }
+
+    deleteRescueById(id) {
+        return Api.delete(`/resgates/${id}`);
     }
 }
 

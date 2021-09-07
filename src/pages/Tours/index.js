@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-import { parseISO, format } from 'date-fns';
+import { Link } from 'react-router-dom';
 
 import { useDispatch } from 'react-redux';
 
@@ -15,12 +15,14 @@ import {
 } from '@material-ui/core';
 
 import {
+    Add,
+    Create,
     Delete,
 } from '@material-ui/icons';
 
 import {
-    ContainerRescue,
-    ContentRescue,
+    ContainerTour,
+    ContentTour,
     ItemCard,
 } from './styles';
 
@@ -30,12 +32,12 @@ import LoadingCard from '../../components/Loadings/LoadingCard';
 
 import ConfirmDialog from '../../components/Dialogs/ConfirmDialog';
 
-import RescueOperations from '../../common/rules/Rescue/RescueOperations';
+import TourOperations from '../../common/rules/Tour/TourOperations';
 
-const Rescue = () => {
+const Tours = () => {
     const dispatch = useDispatch();
 
-    const [rescues, setRescues] = useState([]);
+    const [tours, setTours] = useState([]);
 
     const [isLoading, setIsLoading] = useState(true);
 
@@ -46,22 +48,22 @@ const Rescue = () => {
     const [deletedItem, setDeletedItem] = useState({});
 
     useEffect(() => {
-        getRescues();
+        getTours();
     }, []);
 
-    const getRescues = async () => {
+    const getTours = async () => {
         try {
             setIsLoading(true);
 
             setHasError(false);
 
-            const response = await dispatch(RescueOperations.getRescues());
+            const response = await dispatch(TourOperations.getTours());
 
             setIsLoading(false);
 
-            setRescues(response);
+            setTours(response);
         } catch (err) {
-            console.log('getRescues', err);
+            console.log('getTours', err);
 
             setIsLoading(false);
 
@@ -79,19 +81,19 @@ const Rescue = () => {
     }
 
     const handleDelete = async (item) => {
-        let _items = [...rescues];
+        let _items = [...tours];
 
         _items.splice(item.index, 1);
 
-        setRescues(_items);
+        setTours(_items);
 
-        await dispatch(RescueOperations.deleteRescueById(item.id));
+        await dispatch(TourOperations.deleteTourById(item.id));
 
         setDeletedItem({});
     }
 
     return (
-        <ContainerRescue>
+        <ContainerTour>
             <Menu />
 
             <ConfirmDialog
@@ -106,29 +108,39 @@ const Rescue = () => {
 
                     setOpenConfirmDialog(false);
                 }}
-                title="Excluir Resgate"
+                title="Excluir Passeio"
                 message="Tem certeza que deseja excluir este item?"
             />
 
             <Box className="container-page">
-                <ContentRescue>
+                <ContentTour>
                     <Box className="container-header-page">
-                        <h1>Resgates</h1>
+                        <h1>Passeios</h1>
+
+                        <Tooltip title="Novo passeio" arrow>
+                            <IconButton
+                                aria-label="Novo passeio"
+                                component={Link}
+                                to="/tours/create"
+                            >
+                                <Add />
+                            </IconButton>
+                        </Tooltip>
                     </Box>
 
                     <LoadingCard
                         isLoading={isLoading}
                         hasError={hasError}
-                        onPress={getRescues}
+                        onPress={getTours}
                         rows={8}
                     />
 
                     <Box className="container-grid">
-                        {!isLoading && !hasError && rescues && rescues.length === 0 && (
+                        {!isLoading && !hasError && tours && tours.length === 0 && (
                             <p>Nenhum item encontrado</p>
                         )}
 
-                        {!isLoading && !hasError && rescues && rescues.length > 0 && rescues.map((item, index) => (
+                        {!isLoading && !hasError && tours && tours.length > 0 && tours.map((item, index) => (
                             <ItemCard key={item.id}>
                                 <Card className="card-container">
                                     <CardContent>
@@ -137,7 +149,7 @@ const Rescue = () => {
                                             variant="h5"
                                             component="h2"
                                         >
-                                            {item.especie}
+                                            {item.funcionario.nome}
                                         </Typography>
 
                                         <Typography
@@ -145,55 +157,23 @@ const Rescue = () => {
                                             color="textSecondary"
                                             component="p"
                                         >
-                                            {item.logradouro}, {item.numero} - {item.bairro}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {item.municipio}, {item.estado}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            Porte: {item.porte}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            Celular: {item.celular.replace(/(\d{2})?(\d{5})?(\d{4})/, '($1) $2-$3')}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                        >
-                                            {format(parseISO(item.data_horario), "dd/MM/yyyy 'às' HH:mm")}
-                                        </Typography>
-
-                                        <Typography
-                                            variant="body2"
-                                            color="textSecondary"
-                                            component="p"
-                                            style={{
-                                                marginTop: 16
-                                            }}
-                                        >
-                                            Observação: {item.observacao}
+                                           Valor: R$ {item.valor}
                                         </Typography>
                                     </CardContent>
 
                                     <CardActions>
                                         <Box className="container-button">
+                                            <Tooltip title="Editar" arrow>
+                                                <IconButton
+                                                    aria-label="Editar"
+                                                    size="small"
+                                                    component={Link}
+                                                    to={`/tours/edit/${item.id}`}
+                                                >
+                                                    <Create />
+                                                </IconButton>
+                                            </Tooltip>
+
                                             <Tooltip title="Excluir" arrow>
                                                 <IconButton
                                                     aria-label="Excluir"
@@ -209,10 +189,10 @@ const Rescue = () => {
                             </ItemCard>
                         ))}
                     </Box>
-                </ContentRescue>
+                </ContentTour>
             </Box>
-        </ContainerRescue>
+        </ContainerTour>
     )
 };
 
-export default Rescue;
+export default Tours;

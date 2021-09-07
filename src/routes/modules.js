@@ -8,7 +8,12 @@ import Accommodation from '../pages/Accommodation';
 import CreateEditHotel from '../pages/CreateEditHotel';
 import ViewHotel from '../pages/ViewHotel';
 import Rescue from '../pages/Rescue';
+import CreateRescue from '../pages/CreateRescue';
 import ViewAdoptionRequests from '../pages/ViewAdoptionRequests';
+import Employees from '../pages/Employees';
+import CreateEditEmployee from '../pages/CreateEditEmployee';
+import Tours from '../pages/Tours';
+import CreateEditTour from '../pages/CreateEditTour';
 
 export {
     SignIn,
@@ -21,5 +26,10 @@ export {
     CreateEditHotel,
     ViewHotel,
     Rescue,
+    CreateRescue,
     ViewAdoptionRequests,
+    Employees,
+    CreateEditEmployee,
+    Tours,
+    CreateEditTour,
 };

@@ -90,8 +90,15 @@ const Routes = () => {
                 />
 
                 <CustomRoute
-                    path="/rescue"
+                    path={"/rescue"}
                     component={Modules.Rescue}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path={"/rescue/create"}
+                    component={Modules.CreateRescue}
                     exact
                     isPrivate
                 />
@@ -99,6 +106,48 @@ const Routes = () => {
                 <CustomRoute
                     path="/adoption-requests"
                     component={Modules.ViewAdoptionRequests}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/employees"
+                    component={Modules.Employees}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/employees/create"
+                    component={Modules.CreateEditEmployee}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/employees/edit/:id"
+                    component={Modules.CreateEditEmployee}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/tours"
+                    component={Modules.Tours}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/tours/create"
+                    component={Modules.CreateEditTour}
+                    exact
+                    isPrivate
+                />
+
+                <CustomRoute
+                    path="/tours/edit/:id"
+                    component={Modules.CreateEditTour}
                     exact
                     isPrivate
                 />
