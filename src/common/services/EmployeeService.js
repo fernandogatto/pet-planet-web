@@ -5,6 +5,10 @@ class EmployeeService {
         return Api.get(`/funcionarios`);
     }
 
+    getEmployee(id) {
+        return Api.get(`/funcionarios/${id}`);
+    }
+
     createEmployee(data) {
         return Api.post(`/funcionarios`, data);
     }
