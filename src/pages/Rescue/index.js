@@ -125,7 +125,7 @@ const Rescue = () => {
 
                     <Box className="container-grid">
                         {!isLoading && !hasError && rescues && rescues.length === 0 && (
-                            <p>Nenhum item encontrado</p>
+                            <p>Nenhum resultado encontrado</p>
                         )}
 
                         {!isLoading && !hasError && rescues && rescues.length > 0 && rescues.map((item, index) => (

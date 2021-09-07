@@ -41,6 +41,8 @@ const Menu = () => {
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
 
+    console.log('user', user)
+
     useEffect(() => {
         const setResponsiveness = () => {
             return window.innerWidth <= 768

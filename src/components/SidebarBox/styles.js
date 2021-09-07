@@ -4,9 +4,13 @@ import { withTheme  } from '@material-ui/core/styles';
 
 export const ContainerSidebarBox = withTheme(styled.div`
     width: 100%;
-    background-color: ${props => props.theme.palette.background.primary.main};
+    background-color: ${props => props.theme.palette.background.quaternary.main};
     padding: 16px;
     border-radius: 12px;
+
+    box-shadow: 0px 2px 1px -1px rgb(0 0 0 / 20%),
+        0px 1px 1px 0px rgb(0 0 0 / 14%),
+        0px 1px 3px 0px rgb(0 0 0 / 12%);
 
     .container-title {
         display: flex;
@@ -36,6 +40,12 @@ export const ContainerSidebarBox = withTheme(styled.div`
             h3 {
                 margin-bottom: 4px;
             }
+        }
+
+        .link-box {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     }
 `);
