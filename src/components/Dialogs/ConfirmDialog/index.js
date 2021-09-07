@@ -5,7 +5,9 @@ import {
     DialogTitle,
     DialogContent,
     DialogActions,
+    Box,
     Button,
+    CircularProgress,
 } from '@material-ui/core';
 
 import {
@@ -20,6 +22,7 @@ const ConfirmDialog = ({
     handleConfirmAction,
     title,
     message,
+    isSubmiting,
 }) => {
     return (
         <Dialog
@@ -51,13 +54,25 @@ const ConfirmDialog = ({
                         Cancelar
                     </Button>
 
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={handleConfirmAction}
-                    >
-                        Sim
-                    </Button>
+                    <Box className="wrapper">
+                        {isSubmiting && (
+                            <CircularProgress
+                                className="circular-progress"
+                                style={{ width: 24, height: 24 }}
+                            />
+                        )}
+
+                        <Button
+                            aria-label="Submeter formulário"
+                            type="submit"
+                            variant="contained"
+                            color="primary"
+                            disabled={isSubmiting}
+                            onClick={handleConfirmAction}
+                        >
+                            Sim
+                        </Button>
+                    </Box>
                 </DialogActionContainer>
             </DialogActions>
         </Dialog>

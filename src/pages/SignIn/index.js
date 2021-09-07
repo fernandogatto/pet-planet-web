@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import {
     Box,
@@ -90,7 +90,7 @@ const SignIn = () => {
                     alt="Logo eMilitar"
                 />
 
-                <h1>Cuidando dos seus pets até na lua</h1>
+                <h1>Tudo para o seu pet em um só lugar</h1>
 
                 <Box className="container-form">
                     <TextField
@@ -156,6 +156,12 @@ const SignIn = () => {
                     </FormControl>
 
                     <Box mt={2} className="grid-button">
+                        <Box className="container-links">
+                            <Link to="/sign-up">
+                                Cadastrar
+                            </Link>
+                        </Box>
+
                         <Box className="wrapper">
                             {isSubmiting && (
                                 <CircularProgress

@@ -12,6 +12,13 @@ import {
 import {
     Home,
     Person,
+    Pets,
+    Attachment,
+    Apartment,
+    CalendarToday,
+    DirectionsWalk,
+    Bookmark,
+    Call,
     ExitToApp,
     Menu as MenuIcon,
     Close,
@@ -33,6 +40,8 @@ const Menu = () => {
     const [mobileView, setMobileView] = useState(false);
 
     const [menuIsOpen, setMenuIsOpen] = useState(false);
+
+    console.log('user', user)
 
     useEffect(() => {
         const setResponsiveness = () => {
@@ -79,7 +88,77 @@ const Menu = () => {
                             activeClassName="active"
                         >
                             <Home />
-                            Home
+                            Início
+                        </NavLink>
+
+                        {user.role === 'ADMIN' && (
+                            <NavLink
+                                to="/employees"
+                                activeClassName="active"
+                            >
+                                <Person />
+                                Funcionários
+                            </NavLink>
+                        )}
+
+                        <NavLink
+                            to="/adoption"
+                            activeClassName="active"
+                        >
+                            <Pets />
+                            Adoção
+                        </NavLink>
+
+                        <NavLink
+                            to="/adoption-requests"
+                            activeClassName="active"
+                        >
+                            <Attachment />
+                            Pedidos de adoção
+                        </NavLink>
+
+                        <NavLink
+                            to="/accommodation"
+                            activeClassName="active"
+                        >
+                            <Apartment />
+                            Hospedagem
+                        </NavLink>
+
+                        <NavLink
+                            to="/reserves"
+                            activeClassName="active"
+                        >
+                            <CalendarToday />
+                            Pedidos de reserva
+                        </NavLink>
+
+                        <NavLink
+                            to="/tours"
+                            activeClassName="active"
+                        >
+                            <DirectionsWalk />
+                            Passeios
+                        </NavLink>
+
+                        <NavLink
+                            to="/tour-requests"
+                            activeClassName="active"
+                        >
+                            <Bookmark />
+                            Pedidos de passeio
+                        </NavLink>
+
+                        <NavLink
+                            to={
+                                user.role === 'ADMIN'
+                                    ? '/rescue'
+                                    : '/rescue/create'
+                            }
+                            activeClassName="active"
+                        >
+                            <Call />
+                            Pedidos de resgate
                         </NavLink>
                     </nav>
             )}

@@ -24,12 +24,12 @@ const AuthProvider = ({ children }) => {
     const dispatch = useDispatch();
 
     const [authData, setAuthData] = useState(() => {
-        const user = localStorage.getItem(`@${Storage.project}:user`);
+        const accessToken = localStorage.getItem(`@${Storage.project}:accessToken`);
 
-        if (user) {
-            Api.defaults.headers.authorization = `Bearer ${user}`;
+        if (accessToken) {
+            Api.defaults.headers.authorization = `Bearer ${accessToken}`;
 
-            return { user };
+            return { accessToken };
         }
 
         return {};
@@ -43,7 +43,7 @@ const AuthProvider = ({ children }) => {
         try {
             await dispatch(AuthOperations.getUserAuth());
         } catch (err) {
-            console.log('AuthProvider getUser', err);
+            console.log('getUser', err);
         }
     }
 
@@ -52,8 +52,8 @@ const AuthProvider = ({ children }) => {
             const response = await dispatch(AuthOperations.createAuth(data));
 
             setAuthData(response);
-        } catch (err) {
-            console.log('AuthProvider signIn', err);
+        } catch (error) {
+            console.log('AuthProvider signIn', error);
         }
     };
 
@@ -62,14 +62,15 @@ const AuthProvider = ({ children }) => {
             const response = dispatch(AuthOperations.removeAuth());
 
             setAuthData(response);
-        } catch (err) {
-            console.log('AuthProvider signOut', err);
+        } catch (error) {
+            console.log('AuthProvider signOut', error);
         }
     };
 
     return (
         <AuthContext.Provider
             value={{
+                accessToken: authData.accessToken,
                 isLoadingUser: IsLoadingUser,
                 hasErrorUser: HasErrorUser,
                 user: User,

@@ -38,7 +38,7 @@ export const ContainerSignIn = withTheme(styled.div`
 
         .grid-button {
             display: flex;
-            justify-content: flex-end;
+            justify-content: space-between;
             align-items: center;
 
             .container-links {

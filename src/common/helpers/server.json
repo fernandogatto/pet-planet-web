@@ -9,18 +9,8 @@
       "cpf": "509.804.090-63",
       "nascimento": "31/10/1990",
       "telefone": "(21) 99812-1800",
-      "avatar_url": "https://avatars1.githubusercontent.com/u/45057940?s=460&u=7b54fe90dcf704f572207b0a2a7f59f948fdd63e&v=4"
-    },
-    {
-      "id": 2,
-      "nome": "Luann Sapucaia",
-      "email": "sapucaialuann@email.com",
-      "senha": "123123",
-      "endereco": "Rua Paulo Gustavo, 123",
-      "cpf": "509.804.090-63",
-      "nascimento": "31/10/1990",
-      "telefone": "(21) 99812-1800",
-      "avatar_url": "https://avatars.githubusercontent.com/u/37882760?v=4"
+      "avatar_url": "https://avatars1.githubusercontent.com/u/45057940?s=460&u=7b54fe90dcf704f572207b0a2a7f59f948fdd63e&v=4",
+      "perfil": "Cliente"
     }
   ],
   "auth": [
@@ -82,9 +72,54 @@
       "id": 10
     },
     {
-      "email": "sapucaialuann@email.com",
+      "email": "fernandogatto@email.com",
       "senha": "123123",
       "id": 11
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 12
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 13
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 14
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 15
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 16
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 17
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 18
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 19
+    },
+    {
+      "email": "fernandogatto@email.com",
+      "senha": "123123",
+      "id": 20
     }
   ],
   "pets": [
@@ -94,17 +129,105 @@
       "especie": "Cão",
       "raca": "Akita",
       "idade": "2 anos",
-      "porte": "Médio"
+      "porte": "Médio",
+      "sexo": "Macho",
+      "descricao": "Hachi foi encontrado abandonado em uma estrada. Está a procura de uma família que o trate com carinho. Já está castrado e vermifugado.",
+      "imagem": "https://vetsmart-parsefiles.s3.amazonaws.com/4f62a367df378a3fbd25173f6126eb25_breed.jpg"
+    },
+    {
+      "nome": "Marley",
+      "especie": "Masculino",
+      "raca": "Golden",
+      "idade": "3 anos",
+      "descricao": "Necessita de espaço para brincar e fazer suas necessidades.",
+      "imagem": "https://image.cachorrogato.com.br/thumb/500/500/1/imagens/racas/imagem142.jpg",
+      "porte": "Grande",
+      "sexo": "Macho",
+      "id": 2
     }
   ],
   "hoteis": [
     {
-      "id": 1,
       "nome": "Um Hotel Bom pra Cachorro",
-      "endereco": "Rua ABC",
-      "telefone": "(21) 98765-4321",
-      "diaria": "123,00",
-      "petqaceita": ""
+      "telefone": "21998241221",
+      "diaria": "55,00",
+      "imagem": "https://rduirapuru.com.br/wp-content/uploads/2020/12/pet-hoel-1024x680.jpg",
+      "logradouro": "Rua Florença",
+      "numero": "123",
+      "bairro": "Porto da Pedra",
+      "municipio": "São Gonçalo",
+      "estado": "RJ",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "nome": "Paraíso Pet Hotel",
+      "logradouro": "Rua Marina do Bosque",
+      "numero": "22",
+      "bairro": "Barra da Tijuca",
+      "municipio": "Rio de Janeiro",
+      "estado": "RJ",
+      "telefone": "21988643952",
+      "diaria": "60,00",
+      "imagem": "https://www.paraisopethotel.com/wp-content/uploads/2016/11/transporte-paraisopethotel.jpg"
+    }
+  ],
+  "pedidos": [
+    {
+      "pet_id": 1,
+      "client_id": 2,
+      "id": 1
+    },
+    {
+      "pet_id": 1,
+      "client_id": 1,
+      "id": 2
+    }
+  ],
+  "reservas": [
+    {
+      "hotel_id": 1,
+      "client_id": 1,
+      "data_entrada": "2021-09-05",
+      "data_saida": "2021-09-09",
+      "observacao": "Meu cachorro não gosta de tomar banho.",
+      "id": 1
+    }
+  ],
+  "resgates": [
+    {
+      "id": 1,
+      "logradouro": "Rua Marina do Bosque",
+      "numero": "22",
+      "bairro": "Barra da Tijuca",
+      "municipio": "Rio de Janeiro",
+      "estado": "RJ",
+      "celular": "21988643952",
+      "especie": "Cachorro",
+      "porte": "Grande",
+      "observacao": "Teste",
+      "data_horario": "2021-09-06 09:22:08"
+    },
+    {
+      "celular": "21992193638",
+      "data_horario": "2021-09-07 09:00:00",
+      "especie": "Gato",
+      "porte": "Pequeno",
+      "observacao": "Teste",
+      "estado": "RJ",
+      "municipio": "Rio Bonito",
+      "logradouro": "Rua Sargento Pimenta",
+      "numero": "123",
+      "bairro": "Bom Viver",
+      "id": 2
+    }
+  ],
+  "funcionarios": [
+    {
+      "nome": "Thiago Ribeiro Fagundes",
+      "celular": "21992193638",
+      "email": "thiagofagundes@email.com",
+      "id": 1
     }
   ]
 }

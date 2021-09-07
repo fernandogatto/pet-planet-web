@@ -1,10 +1,10 @@
+import jwt from 'jwt-decode';
+
 import Api from '../../helpers/Api';
 
 import AuthActions from './AuthActions';
 
 import AuthService from '../../services/AuthService';
-
-import CustomerService from '../../services/CustomerService';
 
 import Toast from '../../helpers/Toast';
 
@@ -17,9 +17,11 @@ const AuthOperations = {
         dispatch(AuthActions.SetLoading());
 
         try {
-            const user = localStorage.getItem(`@${Storage.project}:user`);
+            const accessToken = localStorage.getItem(`@${Storage.project}:accessToken`);
 
-            if (user) {
+            if (accessToken) {
+                const user = jwt(accessToken);
+
                 dispatch(AuthActions.SetSuccess(user));
             }
         } catch (error) {
@@ -30,55 +32,37 @@ const AuthOperations = {
     },
     createAuth: (data) => async () => {
         try {
-            const customers = await CustomerService.getCustomers();
+            const response = await AuthService.createAuth(data);
 
-            const user = customers.data
-                .find(item => item.email === data.email && item.senha === data.senha);
+            const { accessToken } = response.data;
 
-            console.log('user', user)
+            localStorage.setItem(`@${Storage.project}:accessToken`, accessToken);
 
-            if (!user) {
-                const number = 0;
-
-                console.log('E-mail ou senha inválido');
-
-                number.replace("-",""); // You can't replace a int
-            }
-
-            await AuthService.createAuth(data);
-
-            localStorage.setItem(`@${Storage.project}:user`, JSON.stringify(user));
-
-            Api.defaults.headers.authorization = `Bearer ${user}`;
+            Api.defaults.headers.authorization = `Bearer ${accessToken}`;
 
             Toast.showSuccess('Login feito com sucesso');
 
-            return user;
+            return response.data;
         } catch (error) {
             Toast.showError(getErrorMessage(error));
 
             throw error;
         }
     },
-    removeAuth: () => async (dispatch) => {
-        dispatch(AuthActions.SetLoading());
-
+    removeAuth: () => () => {
         try {
-            // await AuthService.removeAuth();
-
-            localStorage.removeItem(`@${Storage.project}:user`);
+            localStorage.removeItem(`@${Storage.project}:accessToken`);
 
             Toast.showSuccess('Logout feito com sucesso');
-
-            dispatch(AuthActions.SetSuccess({}));
 
             return {};
         } catch (error) {
             Toast.showError(getErrorMessage(error));
 
-            dispatch(AuthActions.SetFailure());
+            throw error;
         }
     },
 }
 
 export default AuthOperations;
+

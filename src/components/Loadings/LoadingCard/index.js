@@ -4,22 +4,24 @@ import {
     Box,
     IconButton,
     Typography,
+    Card,
+    CardActions,
+    CardContent,
 } from '@material-ui/core';
 
 import { Replay } from '@material-ui/icons';
 
 import { Skeleton } from '@material-ui/lab';
 
-import { Container } from './styles';
+import { ContainerCard } from './styles';
 
-const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
+const LoadingCard = ({ isLoading, hasError, onPress, rows, gridTemplateColumns }) => {
     return (
-
-        <Container>
+        <>
             {hasError && (
                 <Box style={{ textAlign: 'center' }}>
                     <IconButton
-                        onClick={onPress}
+                    onClick={onPress}
                     >
                         <Replay />
                     </IconButton>
@@ -30,29 +32,49 @@ const LoadingCard = ({ isLoading, hasError, onPress, rows }) => {
                 </Box>
             )}
 
-            {isLoading && (
-                [...Array(rows)].map((element, index) => (
-                    <Box key={index} className="container-box">
-                        <Skeleton
-                            type="rect"
-                            height={32}
-                            width={120}
-                            style={{marginBottom: 16}}
-                        />
-                        <Skeleton
-                            type="rect"
-                            width={250}
-                            style={{marginBottom: 4}}
-                        />
-                        <Skeleton
-                            type="rect"
-                            width={250}
-                            style={{marginBottom: 4}}
-                        />
-                    </Box>
-                ))
-            )}
-        </Container>
+            <ContainerCard
+                gridTemplateColumns={gridTemplateColumns || '1fr 1fr 1fr 1fr'}
+            >
+                {isLoading && (
+                    [...Array(rows)].map((element, index) => (
+                        <Card
+                            key={index}
+                            className="card-container"
+                        >
+                            <Skeleton
+                                animation="wave"
+                                variant="rect"
+                                className="image-item"
+                            />
+
+                            <CardContent>
+                                <>
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="text"
+                                        style={{ marginBottom: 8 }}
+                                    />
+                                    <Skeleton
+                                        animation="wave"
+                                        variant="text"
+                                        width="80%"
+                                    />
+                                </>
+                            </CardContent>
+
+                            <CardActions>
+                                <Skeleton
+                                    animation="wave"
+                                    variant="rect"
+                                    height={30}
+                                    width={100}
+                                />
+                            </CardActions>
+                        </Card>
+                    ))
+                )}
+            </ContainerCard>
+        </>
     )
 }
 

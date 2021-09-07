@@ -21,6 +21,9 @@ const theme = createTheme({
             tertiary: {
                 main: '#E8E8E8',
             },
+            quaternary: {
+                main: '#FFFFFF',
+            },
         },
         description: {
             primary: {
@@ -48,6 +51,19 @@ const theme = createTheme({
                 borderRadius: 12,
             },
         },
+        MuiPaper: {
+            root: {
+                padding: 0,
+            },
+            rounded: {
+                borderRadius: 12,
+            },
+        },
+        MuiDrawer: {
+            paper: {
+                width: 255,
+            }
+        }
     },
 });
 

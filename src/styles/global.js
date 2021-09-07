@@ -43,7 +43,7 @@ export default createGlobalStyle`
         column-gap: 32px;
         row-gap: 32px;
         grid-template-areas:
-            "header header"
+            "header sidebar"
             "main sidebar"
             "footer sidebar";
 
@@ -102,6 +102,7 @@ export default createGlobalStyle`
         nav {
             display: flex;
             flex-direction: column;
+            padding: 0 12px 12px;
 
             a {
                 display: flex;
@@ -114,7 +115,7 @@ export default createGlobalStyle`
                 }
 
                 &.active {
-                    color: #13B0FC;
+                    color: #FB6118;
                 }
 
                 svg {
